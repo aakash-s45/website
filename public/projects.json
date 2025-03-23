@@ -1,0 +1,6 @@
+[
+    {"title": "Project 1", "imagePath": "/images/projectcard.png", "description": "This is a description for project 1."},
+    {"title": "Project 2", "imagePath": "/images/projectcard.png", "description": "This is a description for project 2."},
+    {"title": "Project 3", "imagePath": "/images/projectcard.png", "description": "This is a description for project 3."},
+    {"title": "Project 4", "imagePath": "/images/projectcard.png", "description": "This is a description for project 4."}
+]

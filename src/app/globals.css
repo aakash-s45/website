@@ -2,20 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary-background: #F5F5F5; /* Soft Beige */
+  --secondary-background: #E7EEF2; /* Misty Blue */
+  --primary-text: #3C3C3C; /* Slate Gray */
+  --secondary-text: #3B5A5A; /* Muted Teal */
+  --primary-accent: #B9A600; /* Muted Gold */
+  --secondary-accent: #B2C9AB; /* Sage Green */
+  --vinyl-background: #D0C6AC; /* Wood-Green */
+  --progress-bar: #A8C090; /* Sage Green */
+  --divider: #C2C2C2; /* Soft Taupe */
+  --shadow: #E0E0E0; /* Light Shadow Gray */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --primary-background: #121212; /* Deep Charcoal */
+    --secondary-background: #1F2933; /* Slate Navy */
+    --primary-text: #E0E0E0; /* Soft Gray */
+    --secondary-text: #A8B4A5; /* Muted Sage */
+    --primary-accent: #FFD700; /* Vintage Gold */
+    --secondary-accent: #8FA3A0; /* Muted Aqua */
+    --vinyl-background: #0B3D3D; /* Deep Teal */
+    --progress-bar: #FFAA33; /* Soft Amber */
+    --divider: #2E3B42; /* Dim Slate */
+    --shadow: #1A1A1A; /* Shadow Gray */
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+html, body {
+  margin:0px;
+  height:100%;
+}
+
+.box {
+  height:100%;
 }

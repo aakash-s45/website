@@ -1,0 +1,5 @@
+[
+    {"title": "Software Developer", "company": "Company 1", "location": "Noida, India", "duration": "2023 - Present", "description": "Developed a variety of projects using Python, Java, and JavaScript. Worked on Microservices and Web Development."},
+    {"title": "Intern", "company": "Company 2", "location": "Noida, India", "duration": "2022 - 2023", "description": "Developed a variety of projects using Python, Java, and JavaScript. Worked on Microservices and Web Development."},
+    {"title": "Research Intern", "company": "Company 3", "location": "Noida, India", "duration": "2021 - 2022", "description": "Developed a variety of projects using Python, Java, and JavaScript. Worked on Microservices and Web Development."}
+]
