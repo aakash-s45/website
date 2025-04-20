@@ -2,13 +2,11 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
 import { MusicData, useGlobalData } from '@/context/GlobalDataContext';
 import styles from './styles/MusicWidget.module.css';
 import { FaHeadphonesAlt } from 'react-icons/fa';
 import {FaHistory} from 'react-icons/fa';
 import Visualizer from './Visualizer';
-
 
 
 function isMusicPlaying(music: MusicData): boolean {

@@ -9,7 +9,14 @@ import { FaMountain } from 'react-icons/fa';
 import TechIconGrid from '@/components/IconGrid';
 import FeedbackForm from '@/components/FeedbackForm';
 
+
+
 export default function Home() {
+  const bio = [
+    "I am a Software developer with experience in building backend systems, mobile apps, and IoT projects. I have completed bachelor's degree at IIT Mandi.",
+    "I enjoy solving real-world problems through practical and efficient solutions.",
+    "Living in the mountains for 4 years during my college days shaped my approach to problem-solving - I learned to appreciate both simplicity and resilience.",
+  ]
   return (
     <main className={styles.main}>
 
@@ -48,16 +55,15 @@ export default function Home() {
                 </div>
               </div>
               <p className={styles.bio}>
-                I am a Software developer with experience in building backend systems,
-                mobile apps, and IoT projects. I have completed bachelor's degree at IIT Mandi.
+                {/* use array to render bio */}
+                {bio[0]}
               </p>
               <p className={styles.bio}>
-                I enjoy solving real-world problems through practical and efficient solutions.
+                {bio[1]}
               </p>
               <div className={styles.quoteBox}>
                 <p>
-                  "Living in the mountains for 4 years during my college days shaped my
-                  approach to problem-solving - I learned to appreciate both simplicity and resilience."
+                  "{bio[2]}"
                 </p>
               </div>
             </div>
