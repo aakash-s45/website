@@ -6,7 +6,6 @@
   position: relative;
 }
 
-
 .experienceList {
   display: grid;
   gap: 1.5rem;
@@ -15,7 +14,6 @@
 .experienceItem {
   position: relative;
 }
-
 
 .experienceContent {
   display: grid;

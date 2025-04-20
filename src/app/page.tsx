@@ -87,7 +87,9 @@ export default function Home() {
 
         {/* Projects Section */}
         <section className={styles.sectionContainer}>
-          <div className="font-bold text-2xl mb-4 text-[var(--primary-text)]">Projects</div>
+          <div className="font-bold text-2xl mb-4 text-[var(--primary-text)]">
+            Projects
+          </div>
           <ProjectGrid />
         </section>
         {/* Tools & Technologies Section */}
