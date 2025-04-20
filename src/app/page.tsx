@@ -70,7 +70,7 @@ export default function Home() {
               </p>
               <p className={styles.bio}>{bio[1]}</p>
               <div className={styles.quoteBox}>
-                <p>"{bio[2]}"</p>
+                <p>&quot;{bio[2]}&quot;</p>
               </div>
             </div>
           </div>
