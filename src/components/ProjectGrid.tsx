@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useRef } from "react"; 
-import useEmblaCarousel from 'embla-carousel-react'
-import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures'
+import { useCallback, useRef } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 
 import styles from "./styles/ProjectGrid.module.css";
 
@@ -43,12 +43,14 @@ const projects = [
 export default function ProjectGrid() {
   // Create a ref for the scrollable container
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, skipSnaps: true, }, [WheelGesturesPlugin()]);
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: false, skipSnaps: true },
+    [WheelGesturesPlugin()],
+  );
 
   // Function to scroll left
   const scrollLeft = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollRight = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
-
 
   // Function to scroll right
 
@@ -79,7 +81,9 @@ export default function ProjectGrid() {
                 className={styles.circle_btn}
                 aria-label={`View details for ${project.title}`}
                 onClick={() => window.open(project.link, "_blank")}
-              >↗</button>
+              >
+                ↗
+              </button>
             </div>
           </div>
         ))}

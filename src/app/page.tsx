@@ -1,4 +1,3 @@
-
 import {
   FaCoffee,
   FaGithub,
@@ -86,13 +85,13 @@ export default function Home() {
           <ExperienceTimeline />
         </section>
 
-      {/* Projects Section */}
-      <section className={styles.sectionContainer}>
-        <div className="font-bold text-2xl mb-4">Projects</div>
-        <ProjectGrid />
-      </section>
-      {/* Tools & Technologies Section */}
-      <TechIconGrid />
+        {/* Projects Section */}
+        <section className={styles.sectionContainer}>
+          <div className="font-bold text-2xl mb-4">Projects</div>
+          <ProjectGrid />
+        </section>
+        {/* Tools & Technologies Section */}
+        <TechIconGrid />
       </div>
 
       <footer className={styles.footer}>

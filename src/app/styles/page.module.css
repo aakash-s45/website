@@ -15,7 +15,6 @@
   margin: 0 auto;
 }
 
-
 .header {
   position: relative;
   top: 2rem;
@@ -55,7 +54,6 @@
   text-align: right;
   color: #2c5338;
 }
-
 
 .heroSection {
   display: grid;

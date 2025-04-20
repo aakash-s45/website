@@ -9,7 +9,7 @@
 }
 
 .embla__slide {
-  flex: 0 0 auto;  
+  flex: 0 0 auto;
   min-width: 10vw;
   max-width: 30vw;
   border-radius: 16px;
@@ -132,4 +132,3 @@
   background-color: #f7f7f7;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
 }
-
