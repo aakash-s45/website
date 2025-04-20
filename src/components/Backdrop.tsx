@@ -89,7 +89,7 @@ const Backdrop = ({ imageUrl = "/images/albumart.jpg" }: WaveImageProps) => {
     const handleResize = () => {
       // follow 4:3 aspect ratio
       const width = window.innerWidth;
-      const height = width * 0.8;
+      const height = window.innerHeight;
 
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
