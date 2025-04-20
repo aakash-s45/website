@@ -37,7 +37,7 @@ export const GlobalDataProvider = ({
 
   const fetchCurrentTrack = async () => {
     try {
-      const newData = await fetchCurrentTrackData(); // Use the reusable function
+      const newData = await fetchCurrentTrackData();
       setData(newData);
     } catch (err) {
       console.error("Failed to refresh music data:", err);

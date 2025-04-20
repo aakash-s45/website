@@ -1,7 +1,9 @@
-"use client"; // Import useRef
+"use client";
 
 import Image from "next/image";
-import { useRef } from "react"; // Import useRef
+import { useCallback, useRef } from "react"; 
+import useEmblaCarousel from 'embla-carousel-react'
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures'
 
 import styles from "./styles/ProjectGrid.module.css";
 
@@ -41,37 +43,22 @@ const projects = [
 export default function ProjectGrid() {
   // Create a ref for the scrollable container
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, skipSnaps: true, }, [WheelGesturesPlugin()]);
 
   // Function to scroll left
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      // Scroll by container width for a "page" effect, or a fixed amount
-      const scrollAmount = scrollContainerRef.current.clientWidth * 0.8; // Scroll 80% of visible width
-      scrollContainerRef.current.scrollBy({
-        left: -scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  };
+  const scrollLeft = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollRight = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+
 
   // Function to scroll right
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = scrollContainerRef.current.clientWidth * 0.8; // Scroll 80% of visible width
-      scrollContainerRef.current.scrollBy({
-        left: scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  };
 
   return (
     // Add position relative to position the buttons
-    <div className={styles.project_wrapper}>
+    <div className={styles.embla} ref={emblaRef}>
       {/* Attach the ref to the scrollable div */}
-      <div className={styles.project} ref={scrollContainerRef}>
+      <div className={styles.embla__container} ref={scrollContainerRef}>
         {projects.map((project, index) => (
-          <div className={styles.card} key={index}>
+          <div className={styles.embla__slide} key={index}>
             <div className={styles.card_image}>
               <Image
                 src={project.image}
@@ -84,7 +71,6 @@ export default function ProjectGrid() {
             </div>
             <div className={styles.card_info}>
               <div className={styles.card_text_content}>
-                {" "}
                 {/* Added wrapper for text */}
                 <h3>{project.title}</h3>
                 <p>{project.desc}</p>
@@ -93,9 +79,7 @@ export default function ProjectGrid() {
                 className={styles.circle_btn}
                 aria-label={`View details for ${project.title}`}
                 onClick={() => window.open(project.link, "_blank")}
-              >
-                ↗
-              </button>
+              >↗</button>
             </div>
           </div>
         ))}

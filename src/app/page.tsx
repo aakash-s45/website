@@ -1,4 +1,4 @@
-// app/page.tsx
+
 import {
   FaCoffee,
   FaGithub,
@@ -8,11 +8,11 @@ import {
 import { MdEmail } from "react-icons/md";
 import MusicWidget from "@/components/MusicWidget";
 import ExperienceTimeline from "@/components/ExperienceTimeline";
-import ProjectGrid from "@/components/ProjectGrid";
 import styles from "./styles/page.module.css";
 import { FaMountain } from "react-icons/fa";
 import TechIconGrid from "@/components/IconGrid";
 import FeedbackForm from "@/components/FeedbackForm";
+import ProjectGrid from "@/components/ProjectGrid";
 
 export default function Home() {
   const bio = [
@@ -29,7 +29,7 @@ export default function Home() {
         </div>
 
         <div className={styles.weatherInfo}>
-          <p>21° C, Clear</p>
+          <p>27° C, Clear</p>
           <p>Noida, India</p>
         </div>
       </header>
@@ -86,16 +86,13 @@ export default function Home() {
           <ExperienceTimeline />
         </section>
 
-        <div className="font-bold text-2xl mb-4">Projects</div>
-      </div>
       {/* Projects Section */}
       <section className={styles.sectionContainer}>
+        <div className="font-bold text-2xl mb-4">Projects</div>
         <ProjectGrid />
       </section>
-
-      <div className={styles.mainContainer}>
-        {/* Tools & Technologies Section */}
-        <TechIconGrid />
+      {/* Tools & Technologies Section */}
+      <TechIconGrid />
       </div>
 
       <footer className={styles.footer}>

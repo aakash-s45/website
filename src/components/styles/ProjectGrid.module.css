@@ -1,41 +1,20 @@
-/* styles/ProjectGrid.module.css */
-
-/* Wrapper for the entire component */
-.project_wrapper {
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  justify-content: center;
-  width: 100vw;
-  max-width: 72rem;
+.embla {
   overflow: hidden;
-  margin-left: 6.4rem;
-  padding-bottom: 1rem;
 }
 
-.project {
+.embla__container {
   display: flex;
   gap: 1.2rem;
-  overflow-x: auto;
-  max-width: 72rem;
-  padding: 30px 60px;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  scroll-behavior: smooth;
+  margin: 0.5rem;
 }
 
-.project::-webkit-scrollbar {
-  display: none;
-}
-
-.card {
-  flex: 0 0 auto;
-  width: 280px;
+.embla__slide {
+  flex: 0 0 auto;  
+  min-width: 10vw;
+  max-width: 30vw;
   border-radius: 16px;
   background: linear-gradient(to top, #f2f2f2, white);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-  display: flex;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
   flex-direction: column;
   font-family:
     system-ui,
@@ -49,6 +28,12 @@
     "Open Sans",
     "Helvetica Neue",
     sans-serif;
+}
+
+@media (max-width: 768px) {
+  .embla__slide {
+    min-width: 95%;
+  }
 }
 
 .card_image {
@@ -120,7 +105,7 @@
 
 /* Scroll Buttons Styles (Unchanged) */
 .scroll_buttons {
-  padding: 0.5rem 3.8rem;
+  padding: 1rem 0.5rem;
   gap: 0.5rem;
   display: flex;
   z-index: 10;
@@ -130,12 +115,11 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 1px solid #ddd;
-  background: white;
+  background: #f2f2f2;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   font-size: 20px;
   font-weight: bold;
-  color: #333;
+  color: #454545;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -146,12 +130,6 @@
 
 .scroll_btn:hover {
   background-color: #f7f7f7;
-  transform: translateY(-1px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
 }
 
-.scroll_btn:active {
-  background-color: #eee;
-  transform: translateY(0px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}

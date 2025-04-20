@@ -34,7 +34,7 @@ const Backdrop = ({ imageUrl = "/images/albumart.jpg" }: WaveImageProps) => {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight, false); // Don't update style automatically
     canvas.style.width = "100vw";
-    canvas.style.height = "100vh";
+    canvas.height = canvas.width * 0.75;
     canvas.style.display = "block";
     canvas.style.filter = "blur(40px) contrast(1.0) saturate(4.5)";
 
@@ -87,8 +87,9 @@ const Backdrop = ({ imageUrl = "/images/albumart.jpg" }: WaveImageProps) => {
 
     // Handle resize
     const handleResize = () => {
+      // follow 4:3 aspect ratio
       const width = window.innerWidth;
-      const height = window.innerHeight;
+      const height = width * 0.8;
 
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
