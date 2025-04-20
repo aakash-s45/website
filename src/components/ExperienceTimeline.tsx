@@ -44,7 +44,6 @@ const experiences: Experience[] = [
 export default function ExperienceTimeline() {
   return (
     <div className={styles.container}>
-      {/* make the font bold and bigger font size */}
       <div className="font-bold text-2xl"> Worked at </div>
       {/* Experience items */}
       <div className={styles.experienceList}>
@@ -59,6 +58,7 @@ export default function ExperienceTimeline() {
                     alt={exp.company}
                     fill
                     style={{ objectFit: "contain", padding: "0.65rem" }}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
 

@@ -3,9 +3,7 @@
   min-height: 70%;
   width: 80%;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-  font-family:
-    -apple-system, BlinkMacSystemFont, "San Francisco", Roboto, Helvetica,
-    Arial, sans-serif;
+  font-family: var(--font-main);
   margin: 2rem;
 }
 
@@ -24,7 +22,7 @@
 }
 
 .left {
-  background: white;
+  background: var(--primary-background);
   padding: 40px;
   text-align: center;
 }
@@ -32,7 +30,8 @@
 .prompt {
   font-size: 2.5rem;
   font-weight: 600;
-  color: #1c1c1e;
+  color: var(--primary-text);
+  font-family: var(--font-main);
   line-height: 1.2;
 }
 
@@ -56,8 +55,9 @@
   border: none;
   border-bottom: 2px solid #ccc;
   font-size: 18px;
+  font-family: var(--font-main);
+  color: var(--secondary-text);
   padding: 12px;
-  color: #1c1c1e;
   text-align: center;
   outline: none;
   transition: border-color 0.3s;
@@ -70,12 +70,13 @@
 .button {
   margin-top: 24px;
   background: none;
-  color: #1c1c1e;
   border: 1px solid #1c1c1e;
   padding: 10px 24px;
   border-radius: 100px;
   font-size: 14px;
   font-weight: 500;
+  font-family: var(--font-main);
+  color: var(--secondary-text);
   cursor: pointer;
   transition: all 0.2s ease;
 }

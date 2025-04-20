@@ -243,7 +243,6 @@ const TechIconsGrid: React.FC<{ data: IconsGrouped }> = ({ data }) => {
                     <img
                       src={icon.src}
                       alt={icon.alt}
-                      // width={100}
                       height={130}
                       title={icon.alt}
                       className="transition-transform duration-200 hover:scale-105"

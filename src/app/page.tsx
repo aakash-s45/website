@@ -15,9 +15,9 @@ import ProjectGrid from "@/components/ProjectGrid";
 
 export default function Home() {
   const bio = [
-    "I am a Software developer with experience in building backend systems, mobile apps, and IoT projects. I have completed bachelor's degree at IIT Mandi.",
-    "I enjoy solving real-world problems through practical and efficient solutions.",
-    "Living in the mountains for 4 years during my college days shaped my approach to problem-solving - I learned to appreciate both simplicity and resilience.",
+    "I'm a software developer with experience in building backend systems, mobile apps, and IoT projects. I did my undergrad at IIT Mandi.",
+    "I like working on real-world problems and enjoy finding solutions that are simple, practical, and actually work.",
+    "Spent a good part of college in the mountains—learned to keep things calm, simple, and steady. Outside of coding, I’m usually out walking or listening to music.",
   ];
   return (
     <main className={styles.main}>
@@ -69,7 +69,7 @@ export default function Home() {
               </p>
               <p className={styles.bio}>{bio[1]}</p>
               <div className={styles.quoteBox}>
-                <p>&quot;{bio[2]}&quot;</p>
+                <p>{bio[2]}</p>
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@ export default function Home() {
 
         {/* Projects Section */}
         <section className={styles.sectionContainer}>
-          <div className="font-bold text-2xl mb-4">Projects</div>
+          <div className="font-bold text-2xl mb-4 text-[var(--primary-text)]">Projects</div>
           <ProjectGrid />
         </section>
         {/* Tools & Technologies Section */}

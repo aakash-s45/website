@@ -10,7 +10,7 @@
 
 .bar {
   width: 4px;
-  background: linear-gradient(to top, #ff5f6d, #b9a600);
+  background: linear-gradient(to top, #ff5f6d, var(--primary-accent));
   border-radius: 2px;
   box-shadow: 0 0 4px rgba(255, 100, 100, 0.4);
   transition: height 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
