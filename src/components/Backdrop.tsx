@@ -34,7 +34,7 @@ const Backdrop = ({ imageUrl = "/images/albumart.jpg" }: WaveImageProps) => {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight, false); // Don't update style automatically
     canvas.style.width = "100vw";
-    canvas.style.height = "100vh"
+    canvas.style.height = "100vh";
     canvas.style.display = "block";
     canvas.style.filter = "blur(40px) contrast(1.0) saturate(4.5)";
 
