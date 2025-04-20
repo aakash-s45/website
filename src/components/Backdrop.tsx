@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+import { useEffect, useRef } from "react";
+import * as THREE from "three";
 
 interface WaveImageProps {
   imageUrl?: string;
 }
 
-const Backdrop = ({ imageUrl = '/images/albumart.jpg' }: WaveImageProps) => {
+const Backdrop = ({ imageUrl = "/images/albumart.jpg" }: WaveImageProps) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -20,19 +20,23 @@ const Backdrop = ({ imageUrl = '/images/albumart.jpg' }: WaveImageProps) => {
       65,
       window.innerWidth / window.innerHeight,
       0.1,
-      1000
+      1000,
     );
     camera.position.set(0, 10, 70);
     camera.rotation.x = -0.15;
 
     // Renderer setup
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: true,
+    });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight, false); // Don't update style automatically
-    canvas.style.width = '100vw';
-    canvas.style.height = '100vh';
-    canvas.style.display = 'block';
-    canvas.style.filter = 'blur(40px) contrast(1.0) saturate(4.5)';
+    canvas.style.width = "100vw";
+    canvas.style.height = "100vh";
+    canvas.style.display = "block";
+    canvas.style.filter = "blur(40px) contrast(1.0) saturate(4.5)";
 
     // Mesh & material setup
     const meshInstances: THREE.Mesh[] = [];
@@ -65,11 +69,11 @@ const Backdrop = ({ imageUrl = '/images/albumart.jpg' }: WaveImageProps) => {
       const time = performance.now() * 0.001;
 
       meshInstances.forEach((mesh) => {
-        const posAttr = mesh.geometry.attributes.position as THREE.BufferAttribute;
+        const posAttr = mesh.geometry.attributes
+          .position as THREE.BufferAttribute;
         for (let i = 0; i < posAttr.count; i++) {
           const x = posAttr.getX(i);
           posAttr.setZ(i, Math.sin(x * 0.5 + time) * 8);
-                
         }
         posAttr.needsUpdate = true;
 
@@ -78,7 +82,7 @@ const Backdrop = ({ imageUrl = '/images/albumart.jpg' }: WaveImageProps) => {
 
       renderer.render(scene, camera);
     };
-    
+
     animate();
 
     // Handle resize
@@ -94,12 +98,12 @@ const Backdrop = ({ imageUrl = '/images/albumart.jpg' }: WaveImageProps) => {
       canvas.style.height = `${height}px`;
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     // Cleanup
     return () => {
       cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
       renderer.dispose();
 
       meshInstances.forEach((mesh) => {
@@ -112,14 +116,19 @@ const Backdrop = ({ imageUrl = '/images/albumart.jpg' }: WaveImageProps) => {
     };
   }, [imageUrl]);
 
-  return <canvas ref={canvasRef} style={{
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    zIndex: -1,
-  }} />;
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        zIndex: -1,
+      }}
+    />
+  );
 };
 
 export default Backdrop;

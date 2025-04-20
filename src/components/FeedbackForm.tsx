@@ -1,21 +1,20 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import styles from './styles/FeedbackForm.module.css';
-
+import { useState } from "react";
+import styles from "./styles/FeedbackForm.module.css";
 
 export default function FeedbackScreen() {
-  const [message, setMessage] = useState('');
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('sending');
+    setStatus("sending");
 
     await new Promise((res) => setTimeout(res, 1000));
-    setStatus('sent');
-    setMessage('');
-    setTimeout(() => setStatus('idle'), 3000);
+    setStatus("sent");
+    setMessage("");
+    setTimeout(() => setStatus("idle"), 3000);
   };
 
   return (
@@ -38,9 +37,13 @@ export default function FeedbackScreen() {
           <button
             type="submit"
             className={styles.button}
-            disabled={status === 'sending' || message.trim() === ''}
+            disabled={status === "sending" || message.trim() === ""}
           >
-            {status === 'sending' ? 'Sending…' : status === 'sent' ? 'Sent!' : 'Send'}
+            {status === "sending"
+              ? "Sending…"
+              : status === "sent"
+                ? "Sent!"
+                : "Send"}
           </button>
         </form>
       </div>

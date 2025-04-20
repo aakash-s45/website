@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import styles from './styles/Visualizer.module.css';
+import { useEffect, useRef, useState } from "react";
+import styles from "./styles/Visualizer.module.css";
 
 export default function Visualizer({ isPlaying }: { isPlaying: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -25,7 +25,7 @@ export default function Visualizer({ isPlaying }: { isPlaying: boolean }) {
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
-  
+
     const getLevelForIndex = (index: number, total: number) => {
       // Create a symmetrical distribution curve (like a bell)
       const center = total / 2;
@@ -35,22 +35,21 @@ export default function Visualizer({ isPlaying }: { isPlaying: boolean }) {
       const max = 20;
       return Math.floor(base + intensity * Math.random() * (max - base));
     };
-  
+
     if (isPlaying && levels.length > 0) {
       interval = setInterval(() => {
-        setLevels(prev =>
-          prev.map((_, i) => getLevelForIndex(i, prev.length))
+        setLevels((prev) =>
+          prev.map((_, i) => getLevelForIndex(i, prev.length)),
         );
       }, 180);
     } else {
-      setLevels(prev => prev.map(() => 6));
+      setLevels((prev) => prev.map(() => 6));
     }
-  
+
     return () => {
       if (interval) clearInterval(interval);
     };
   }, [isPlaying, levels.length]);
-  
 
   return (
     <div ref={containerRef} className={styles.visualizer}>

@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import styles from './styles/ExperienceTimeline.module.css';
+import Image from "next/image";
+import styles from "./styles/ExperienceTimeline.module.css";
 
 interface Experience {
   id: number;
@@ -25,7 +25,7 @@ const experiences: Experience[] = [
     id: 2,
     company: "Google Summer of Code - The Linux Foundation",
     role: "Individual Contributor",
-    logo: "/images/gsoc.png", 
+    logo: "/images/gsoc.png",
     startDate: new Date("2022-03-01"),
     endDate: new Date("2022-09-30"),
     color: "#2563eb",
@@ -41,18 +41,16 @@ const experiences: Experience[] = [
   },
 ];
 
-
 export default function ExperienceTimeline() {
-  
   return (
     <div className={styles.container}>
       {/* make the font bold and bigger font size */}
-      <div className='font-bold text-2xl' > Worked at </div>
+      <div className="font-bold text-2xl"> Worked at </div>
       {/* Experience items */}
       <div className={styles.experienceList}>
-        {experiences.map(exp => {
+        {experiences.map((exp) => {
           return (
-            <div key={exp.id} className={styles.experienceItem}>              
+            <div key={exp.id} className={styles.experienceItem}>
               {/* Experience content */}
               <div className={styles.experienceContent}>
                 <div className={styles.logoContainer}>
@@ -60,19 +58,25 @@ export default function ExperienceTimeline() {
                     src={exp.logo}
                     alt={exp.company}
                     fill
-                    style={{ objectFit: 'contain',  padding: '0.65rem' }}
+                    style={{ objectFit: "contain", padding: "0.65rem" }}
                   />
                 </div>
-                
+
                 <div className={styles.experienceDetails}>
                   <h3 className={styles.company}>{exp.company}</h3>
                   <p className={styles.role}>{exp.role}</p>
                   <p className={styles.dates}>
-                    {exp.startDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} - {
-                      exp.endDate 
-                        ? exp.endDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) 
-                        : 'Present'
-                    }
+                    {exp.startDate.toLocaleDateString("en-US", {
+                      month: "long",
+                      year: "numeric",
+                    })}{" "}
+                    -{" "}
+                    {exp.endDate
+                      ? exp.endDate.toLocaleDateString("en-US", {
+                          month: "long",
+                          year: "numeric",
+                        })
+                      : "Present"}
                   </p>
                 </div>
               </div>

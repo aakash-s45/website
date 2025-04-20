@@ -1,25 +1,27 @@
 // app/page.tsx
-import { FaCoffee, FaGithub, FaHeadphonesAlt, FaLinkedin } from 'react-icons/fa';
-import { MdEmail } from 'react-icons/md';
-import MusicWidget from '@/components/MusicWidget';
-import ExperienceTimeline from '@/components/ExperienceTimeline';
-import ProjectGrid from '@/components/ProjectGrid';
-import styles from './styles/page.module.css';
-import { FaMountain } from 'react-icons/fa';
-import TechIconGrid from '@/components/IconGrid';
-import FeedbackForm from '@/components/FeedbackForm';
-
-
+import {
+  FaCoffee,
+  FaGithub,
+  FaHeadphonesAlt,
+  FaLinkedin,
+} from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import MusicWidget from "@/components/MusicWidget";
+import ExperienceTimeline from "@/components/ExperienceTimeline";
+import ProjectGrid from "@/components/ProjectGrid";
+import styles from "./styles/page.module.css";
+import { FaMountain } from "react-icons/fa";
+import TechIconGrid from "@/components/IconGrid";
+import FeedbackForm from "@/components/FeedbackForm";
 
 export default function Home() {
   const bio = [
     "I am a Software developer with experience in building backend systems, mobile apps, and IoT projects. I have completed bachelor's degree at IIT Mandi.",
     "I enjoy solving real-world problems through practical and efficient solutions.",
     "Living in the mountains for 4 years during my college days shaped my approach to problem-solving - I learned to appreciate both simplicity and resilience.",
-  ]
+  ];
   return (
     <main className={styles.main}>
-
       {/* Header with Weather */}
       <header className={styles.header}>
         <div className={styles.waveIcon}>
@@ -33,7 +35,6 @@ export default function Home() {
       </header>
 
       <div className={styles.mainContainer}>
-
         {/* Hero Section with Bento Grid */}
         <section className={styles.heroSection}>
           {/* Intro Content */}
@@ -43,13 +44,22 @@ export default function Home() {
                 <h2 className={styles.greeting}>Hello, My name is</h2>
                 <h1 className={styles.name}>Aakash Solanki</h1>
                 <div className={styles.socialLinks}>
-                  <a href="https://github.com/aakash-s45" className={styles.socialIcon}>
+                  <a
+                    href="https://github.com/aakash-s45"
+                    className={styles.socialIcon}
+                  >
                     <FaGithub />
                   </a>
-                  <a href="https://linkedin.com/in/aakash-s45" className={styles.socialIcon}>
+                  <a
+                    href="https://linkedin.com/in/aakash-s45"
+                    className={styles.socialIcon}
+                  >
                     <FaLinkedin />
                   </a>
-                  <a href="mailto:hey.aakashs@gmail.com" className={styles.socialIcon}>
+                  <a
+                    href="mailto:hey.aakashs@gmail.com"
+                    className={styles.socialIcon}
+                  >
                     <MdEmail />
                   </a>
                 </div>
@@ -58,13 +68,9 @@ export default function Home() {
                 {/* use array to render bio */}
                 {bio[0]}
               </p>
-              <p className={styles.bio}>
-                {bio[1]}
-              </p>
+              <p className={styles.bio}>{bio[1]}</p>
               <div className={styles.quoteBox}>
-                <p>
-                  "{bio[2]}"
-                </p>
+                <p>"{bio[2]}"</p>
               </div>
             </div>
           </div>
@@ -86,7 +92,7 @@ export default function Home() {
       <section className={styles.sectionContainer}>
         <ProjectGrid />
       </section>
-      
+
       <div className={styles.mainContainer}>
         {/* Tools & Technologies Section */}
         <TechIconGrid />
@@ -94,13 +100,13 @@ export default function Home() {
 
       <footer className={styles.footer}>
         <FeedbackForm />
-        <div className='font-semibold bottom-9 opacity-80 flex flex-row gap-2 items-center'> 
+        <div className="font-semibold bottom-9 opacity-80 flex flex-row gap-2 items-center">
           <p>Made with</p>
-           <FaHeadphonesAlt /> 
+          <FaHeadphonesAlt />
           <p>and</p>
-          <FaCoffee/>
+          <FaCoffee />
           <p>by Aakash Solanki</p>
-          </div>
+        </div>
       </footer>
     </main>
   );

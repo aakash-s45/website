@@ -1,15 +1,15 @@
 /* app/styles/layout.module.css */
 .body {
-    min-height: 100vh;
-    background-color: #e8e8e0;
-    /* background-color: black; */
-    color: #1e3b29;
-    display: grid;
-    grid-template-rows: 1fr auto;
-  }
-  
-  .footer {
-    text-align: center;
-    padding: 1.5rem;
-    color: #2c5338;
-  }
+  min-height: 100vh;
+  background-color: #e8e8e0;
+  /* background-color: black; */
+  color: #1e3b29;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.footer {
+  text-align: center;
+  padding: 1.5rem;
+  color: #2c5338;
+}

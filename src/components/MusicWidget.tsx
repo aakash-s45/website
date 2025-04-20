@@ -1,13 +1,12 @@
 // components/MusicWidget.tsx
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { MusicData, useGlobalData } from '@/context/GlobalDataContext';
-import styles from './styles/MusicWidget.module.css';
-import { FaHeadphonesAlt } from 'react-icons/fa';
-import {FaHistory} from 'react-icons/fa';
-import Visualizer from './Visualizer';
-
+import Image from "next/image";
+import { MusicData, useGlobalData } from "@/context/GlobalDataContext";
+import styles from "./styles/MusicWidget.module.css";
+import { FaHeadphonesAlt } from "react-icons/fa";
+import { FaHistory } from "react-icons/fa";
+import Visualizer from "./Visualizer";
 
 function isMusicPlaying(music: MusicData): boolean {
   if (!music.updatedTime || !music.duration) return false;
@@ -22,7 +21,8 @@ export default function MusicWidget() {
 
   if (!globalData?.music) return null;
 
-  const albumArt = globalData?.music?.images?.at(-1)?.['#text'] || '/images/albumart.jpg';
+  const albumArt =
+    globalData?.music?.images?.at(-1)?.["#text"] || "/images/albumart.jpg";
 
   const isPlaying = globalData?.music.updated
     ? isMusicPlaying(globalData?.music)
@@ -40,7 +40,7 @@ export default function MusicWidget() {
             src={albumArt}
             alt={`${globalData.music.title} by ${globalData.music.artist}`}
             fill
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: "cover" }}
           />
         </div>
       </div>
@@ -49,7 +49,10 @@ export default function MusicWidget() {
         <h3 className={styles.title}>{globalData.music.title}</h3>
         <p className={styles.artist}>{globalData.music.artist}</p>
         <Visualizer isPlaying={isPlaying} />
-        <div className={styles.updated}> <FaHistory /> {globalData.music.updated}</div>
+        <div className={styles.updated}>
+          {" "}
+          <FaHistory /> {globalData.music.updated}
+        </div>
       </div>
     </div>
   );

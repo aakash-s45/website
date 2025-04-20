@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { fetchCurrentTrackData } from '@/app/utils/fetchData';
-import { createContext, useContext, useState, useEffect } from 'react';
+import { fetchCurrentTrackData } from "@/app/utils/fetchData";
+import { createContext, useContext, useState, useEffect } from "react";
 
 interface ImageObj {
   size: string;
@@ -37,10 +37,10 @@ export const GlobalDataProvider = ({
 
   const fetchCurrentTrack = async () => {
     try {
-      const newData = await fetchCurrentTrackData();  // Use the reusable function
+      const newData = await fetchCurrentTrackData(); // Use the reusable function
       setData(newData);
     } catch (err) {
-      console.error('Failed to refresh music data:', err);
+      console.error("Failed to refresh music data:", err);
     }
   };
 

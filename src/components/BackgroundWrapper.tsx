@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Backdrop from './Backdrop';
-import { useGlobalData } from '@/context/GlobalDataContext';
+import React from "react";
+import Backdrop from "./Backdrop";
+import { useGlobalData } from "@/context/GlobalDataContext";
 
 interface BackgroundWrapperProps {
   children: React.ReactNode;
@@ -10,13 +10,12 @@ interface BackgroundWrapperProps {
 
 const BackgroundWrapper: React.FC<BackgroundWrapperProps> = ({ children }) => {
   const globalData = useGlobalData();
-  const albumArt = globalData?.music?.images?.at(-1)?.['#text'] || '/images/albumart.jpg';
+  const albumArt =
+    globalData?.music?.images?.at(-1)?.["#text"] || "/images/albumart.jpg";
   return (
     <div className="relative min-h-screen">
-      <Backdrop imageUrl={albumArt} /> 
-      <div className="relative z-10">
-        {children}
-      </div>
+      <Backdrop imageUrl={albumArt} />
+      <div className="relative z-10">{children}</div>
     </div>
   );
 };

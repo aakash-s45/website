@@ -2,40 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
-  --primary-background: #F5F5F5; /* Soft Beige */
-  --secondary-background: #E7EEF2; /* Misty Blue */
-  --primary-text: #3C3C3C; /* Slate Gray */
-  --secondary-text: #3B5A5A; /* Muted Teal */
-  --primary-accent: #B9A600; /* Muted Gold */
-  --secondary-accent: #B2C9AB; /* Sage Green */
-  --vinyl-background: #D0C6AC; /* Wood-Green */
-  --progress-bar: #A8C090; /* Sage Green */
-  --divider: #C2C2C2; /* Soft Taupe */
-  --shadow: #E0E0E0; /* Light Shadow Gray */
+  --primary-background: #f5f5f5; /* Soft Beige */
+  --secondary-background: #e7eef2; /* Misty Blue */
+  --primary-text: #3c3c3c; /* Slate Gray */
+  --secondary-text: #3b5a5a; /* Muted Teal */
+  --primary-accent: #b9a600; /* Muted Gold */
+  --secondary-accent: #b2c9ab; /* Sage Green */
+  --vinyl-background: #d0c6ac; /* Wood-Green */
+  --progress-bar: #a8c090; /* Sage Green */
+  --divider: #c2c2c2; /* Soft Taupe */
+  --shadow: #e0e0e0; /* Light Shadow Gray */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --primary-background: #121212; /* Deep Charcoal */
-    --secondary-background: #1F2933; /* Slate Navy */
-    --primary-text: #E0E0E0; /* Soft Gray */
-    --secondary-text: #A8B4A5; /* Muted Sage */
-    --primary-accent: #FFD700; /* Vintage Gold */
-    --secondary-accent: #8FA3A0; /* Muted Aqua */
-    --vinyl-background: #0B3D3D; /* Deep Teal */
-    --progress-bar: #FFAA33; /* Soft Amber */
-    --divider: #2E3B42; /* Dim Slate */
-    --shadow: #1A1A1A; /* Shadow Gray */
+    --secondary-background: #1f2933; /* Slate Navy */
+    --primary-text: #e0e0e0; /* Soft Gray */
+    --secondary-text: #a8b4a5; /* Muted Sage */
+    --primary-accent: #ffd700; /* Vintage Gold */
+    --secondary-accent: #8fa3a0; /* Muted Aqua */
+    --vinyl-background: #0b3d3d; /* Deep Teal */
+    --progress-bar: #ffaa33; /* Soft Amber */
+    --divider: #2e3b42; /* Dim Slate */
+    --shadow: #1a1a1a; /* Shadow Gray */
   }
 }
 
-html, body {
-  margin:0px;
-  height:100%;
+html,
+body {
+  margin: 0px;
+  height: 100%;
 }
 
 .box {
-  height:100%;
+  height: 100%;
 }
