@@ -1,0 +1,61 @@
+'use client';
+
+import { fetchCurrentTrackData } from '@/app/utils/fetchData';
+import { createContext, useContext, useState, useEffect } from 'react';
+
+interface ImageObj {
+  size: string;
+  "#text": string;
+}
+
+export interface MusicData {
+  title: string;
+  artist: string;
+  images: ImageObj[];
+  duration: number;
+  elapsed: number;
+  updated?: string;
+  updatedTime?: Date;
+}
+
+interface GlobalData {
+  music: MusicData | null;
+}
+
+const GlobalDataContext = createContext<GlobalData | null>(null);
+
+export const useGlobalData = () => useContext(GlobalDataContext);
+
+export const GlobalDataProvider = ({
+  children,
+  initialData,
+}: {
+  children: React.ReactNode;
+  initialData: GlobalData;
+}) => {
+  const [data, setData] = useState<GlobalData>(initialData);
+
+  const fetchCurrentTrack = async () => {
+    try {
+      const newData = await fetchCurrentTrackData();  // Use the reusable function
+      setData(newData);
+    } catch (err) {
+      console.error('Failed to refresh music data:', err);
+    }
+  };
+
+  // Refresh every 5s
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchCurrentTrack();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <GlobalDataContext.Provider value={data}>
+      {children}
+    </GlobalDataContext.Provider>
+  );
+};

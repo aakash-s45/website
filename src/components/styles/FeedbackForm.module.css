@@ -1,0 +1,100 @@
+.container {
+  display: flex;
+  min-height: 70%;
+  width: 80%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', Roboto, Helvetica, Arial, sans-serif;
+  margin: 2rem;
+}
+
+.left,
+.right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left {
+  background: white;
+  padding: 40px;
+  text-align: center;
+}
+
+.prompt {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #1c1c1e;
+  line-height: 1.2;
+}
+
+
+
+.right {
+  background-color: #f5f5f0ab;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 40px;
+}
+
+.form {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  font-size: 18px;
+  padding: 12px;
+  color: #1c1c1e;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.input:focus {
+  border-color: #000;
+}
+
+.button {
+  margin-top: 24px;
+  background: none;
+  color: #1c1c1e;
+  border: 1px solid #1c1c1e;
+  padding: 10px 24px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button:hover:not(:disabled) {
+  background: #1c1c1e;
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .prompt {
+    font-size: 1.8rem;
+  }
+
+  .input {
+    font-size: 16px;
+  }
+}

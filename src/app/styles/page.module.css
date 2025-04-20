@@ -1,0 +1,278 @@
+/* app/styles/page.module.css */
+
+/* full screen */
+.main{
+  width: 100vw;
+  height: 100vh;
+}
+
+.mainContainer {
+    display: grid;
+    gap: 4rem;
+    width: 100%;
+    max-width: 72rem; /*1152px*/
+    padding: 2rem 1rem;
+    margin: 0 auto;
+  }
+
+  /* set different max width for  project card inside the mainContainer */ 
+
+
+  
+  .header {
+    position: relative;
+    top: 2rem;
+    margin: auto 3rem;
+    z-index: 1000;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+
+
+  .footer {
+    position: relative;
+    z-index: 1000;
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: linear-gradient(to top, #cdcdb8, #c0c0ac);
+  }
+  
+  .waveIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid #2c5338;
+    border-radius: 9999px;
+    font-size: 1.5rem;
+  }
+  
+  .weatherInfo {
+    justify-self: end;
+    text-align: right;
+    color: #2c5338;
+  }
+  
+  /* Hero Section Styles */
+  .heroSection {
+    display: grid;
+    /* margin: 4rem 10rem; */
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  
+  @media (min-width: 768px) {
+    .heroSection {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+  
+  .introCard {
+    background-color: #f5f5f0ab;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .introContent {
+    display: grid;
+    gap: 1rem;
+  }
+  
+  .greeting {
+    font-size: 1.25rem;
+    font-weight: normal;
+    color: #2c5338;
+  }
+  
+  .name {
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: #1e3b29;
+    margin-bottom: 0.75rem;
+  }
+  
+  .socialLinks {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .socialIcon {
+    font-size: 1.5rem;
+    color: #1e3b29;
+    transition: color 0.2s;
+  }
+  
+  .socialIcon:hover {
+    color: #3a6a47;
+  }
+  
+  .bio {
+    font-size: 1.125rem;
+  }
+  
+  .quoteBox {
+    background-color: #e8e8e0;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    font-style: italic;
+    color: #2c5338;
+  }
+  
+  .musicWidgetContainer {
+    height: 100%;
+  }
+  
+  /* Section Styles */
+  .sectionContainer {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  
+  .sectionHeader {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .sectionTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1e3b29;
+  }
+  
+  .sectionLine {
+    height: 1px;
+    background-color: #2c5338;
+  }
+  
+  .sectionDot {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 9999px;
+    background-color: #2c5338;
+  }
+
+
+.bentoGrid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+  
+  .bentoCard {
+    background-color: #f5f5f0;
+    backdrop-filter: blur(8px);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+  }
+  
+  .mainContent {
+    grid-column: span 2;
+  }
+  
+  .sideContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .techCategories {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .categoryTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2c5338;
+    margin-bottom: 0.5rem;
+  }
+  
+  .categoryItems {
+    color: #333;
+  }
+  
+  .contactForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .formLabel {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .formInput,
+  .formTextarea {
+    width: 100%;
+    padding: 0.5rem;
+    border-bottom: 2px solid #2e7d32;
+    background-color: transparent;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  
+  .formInput:focus,
+  .formTextarea:focus {
+    border-color: #1b5e20;
+  }
+  
+  .submitButton {
+    padding: 0.75rem 1.5rem;
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    align-self: flex-start;
+  }
+  
+  .submitButton:hover {
+    background-color: #1b5e20;
+  }
+  
+  .retroMusicImage {
+    border-radius: 0.5rem;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  @media (max-width: 768px) {
+    .bentoGrid {
+      grid-template-columns: 1fr;
+    }
+    
+    .mainContent {
+      grid-column: span 1;
+    }
+  }
