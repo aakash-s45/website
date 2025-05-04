@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
       "lastfm.freetls.fastly.net",
       "raw.githubusercontent.com",
       "img.shields.io",
+      "lh3.googleusercontent.com",
     ],
   },
 };
