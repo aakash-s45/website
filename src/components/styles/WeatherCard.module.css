@@ -1,0 +1,29 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.condition {
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.details {
+  font-size: 0.9rem;
+}
+
+.icon {
+  position: absolute;
+  top: 10px;
+  opacity: 0.9;
+  z-index: 1;
+}

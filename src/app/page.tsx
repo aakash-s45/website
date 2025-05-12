@@ -12,6 +12,7 @@ import { FaMountain } from "react-icons/fa";
 import TechIconGrid from "@/components/IconGrid";
 import FeedbackForm from "@/components/FeedbackForm";
 import ProjectGrid from "@/components/ProjectGrid";
+import WeatherWidget from "@/components/WeatherCard";
 
 export default function Home() {
   const bio = [
@@ -27,10 +28,7 @@ export default function Home() {
           <FaMountain />
         </div>
 
-        <div className={styles.weatherInfo}>
-          <p>27° C, Clear</p>
-          <p>Noida, India</p>
-        </div>
+        <WeatherWidget />
       </header>
 
       <div className={styles.mainContainer}>

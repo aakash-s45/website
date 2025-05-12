@@ -28,6 +28,11 @@ const nextConfig: NextConfig = {
         hostname: "webhook.hdebian.online",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "openweathermap.org",
+        pathname: "/**",
+      },
     ],
   },
 };
