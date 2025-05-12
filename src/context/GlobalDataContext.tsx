@@ -15,7 +15,7 @@ export interface MusicData {
   duration: number;
   elapsed: number;
   updated?: string;
-  updatedTime?: Date;
+  updatedTime?: string;
 }
 
 interface GlobalData {

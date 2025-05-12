@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import styles from "./styles/layout.module.css";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
 import { GlobalDataProvider } from "@/context/GlobalDataContext";
-import { fetchCurrentTrackData } from "./utils/fetchData";
+import { fetchCurrentTrackData } from "./utils/fetchDataServer";
 
 const inter = Inter({ subsets: ["latin"] });
 

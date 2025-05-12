@@ -58,7 +58,7 @@
   font-family: var(--font-main);
   color: var(--secondary-text);
   padding: 12px;
-  text-align: center;
+  text-align: left;
   outline: none;
   transition: border-color 0.3s;
 }

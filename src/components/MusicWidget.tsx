@@ -10,7 +10,7 @@ import Visualizer from "./Visualizer";
 
 function isMusicPlaying(music: MusicData): boolean {
   if (!music.updatedTime || !music.duration) return false;
-  const updatedTime = music.updatedTime.getTime() || 0;
+  const updatedTime = new Date(music.updatedTime || 0).getTime(); 
   const currentTime = Date.now();
   const totalElapsed = (currentTime - updatedTime) / 1000 + music.elapsed;
   return totalElapsed < music.duration;
@@ -35,7 +35,7 @@ export default function MusicWidget() {
       </div>
 
       <div className={styles.albumContainer}>
-        <div className={styles.albumArt}>
+        <div className={styles.albumArt} id="album-art">
           <Image
             src={albumArt}
             alt={`${globalData.music.title} by ${globalData.music.artist}`}

@@ -3,11 +3,12 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-interface WaveImageProps {
+interface BackdropProps {
   imageUrl?: string;
+  targetId?: string;
 }
 
-const Backdrop = ({ imageUrl = "/images/albumart.jpg" }: WaveImageProps) => {
+const Backdrop = ({ imageUrl = "/images/albumart.jpg", targetId = "album-art" }: BackdropProps) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -42,6 +43,21 @@ const Backdrop = ({ imageUrl = "/images/albumart.jpg" }: WaveImageProps) => {
     const meshInstances: THREE.Mesh[] = [];
     const geometry = new THREE.CircleGeometry(25, 64);
     const textureLoader = new THREE.TextureLoader();
+
+    // const updateMeshPositionToElement = () => {
+    //   if (!targetId) return;
+
+    //   const targetEl = document.getElementById(targetId);
+    //   if (!targetEl) return;
+
+    //   const rect = targetEl.getBoundingClientRect();
+    //   const x = rect.x + rect.width / 2;
+    //   const y = rect.y + rect.height / 2;
+
+    //   console.log(rect);
+    // };
+
+
     const texture = textureLoader.load(imageUrl, () => {
       const material = new THREE.MeshBasicMaterial({ map: texture });
 
@@ -87,9 +103,12 @@ const Backdrop = ({ imageUrl = "/images/albumart.jpg" }: WaveImageProps) => {
 
     // Handle resize
     const handleResize = () => {
-      // follow 4:3 aspect ratio
       const width = window.innerWidth;
-      const height = window.innerHeight;
+      let height = window.innerHeight;
+
+      if (width > height) {
+        height = (816 / 1440) * width;
+      }
 
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
@@ -115,7 +134,7 @@ const Backdrop = ({ imageUrl = "/images/albumart.jpg" }: WaveImageProps) => {
       texture.dispose();
       geometry.dispose();
     };
-  }, [imageUrl]);
+  }, [imageUrl, targetId]);
 
   return (
     <canvas
