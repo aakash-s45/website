@@ -1,32 +1,32 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
 interface Feedback {
-    name: string;
-    email: string;
-    message: string;
+  name: string;
+  email: string;
+  message: string;
 }
 
 export async function POST(req: Request) {
-    const baseurl: string =
-        process.env.NEXT_PUBLIC_EVENTS_BASEURL ??
-        (() => {
-            throw new Error(
-                "NEXT_PUBLIC_EVENTS_BASEURL is not defined in the environment variables",
-            );
-        })();
+  const baseurl: string =
+    process.env.NEXT_PUBLIC_EVENTS_BASEURL ??
+    (() => {
+      throw new Error(
+        "NEXT_PUBLIC_EVENTS_BASEURL is not defined in the environment variables",
+      );
+    })();
 
-    const apiKey: string =
-        process.env.NEXT_PUBLIC_EVENTS_API_KEY ??
-        (() => {
-            throw new Error(
-                "NEXT_PUBLIC_EVENTS_API_KEY is not defined in the environment variables",
-            );
-        })();
+  const apiKey: string =
+    process.env.NEXT_PUBLIC_EVENTS_API_KEY ??
+    (() => {
+      throw new Error(
+        "NEXT_PUBLIC_EVENTS_API_KEY is not defined in the environment variables",
+      );
+    })();
 
-    try {
-        const { name, email, message }: Feedback = await req.json();
-        
-        const body = `
+  try {
+    const { name, email, message }: Feedback = await req.json();
+
+    const body = `
         <html>
             <body>
             <p>Hi!</p>
@@ -38,37 +38,38 @@ export async function POST(req: Request) {
         </html>
         `;
 
+    const subject = `You got a feedback!`;
+    const url = `${baseurl}/api/v1/send-email`;
+    const recipient = "corona3hack@gmail.com";
+    const payload = {
+      email: recipient,
+      subject: subject,
+      body: body,
+    };
 
-    
-        const subject = `You got a feedback!`
-        const url = `${baseurl}/api/v1/send-email`;
-        const recipient = "corona3hack@gmail.com"
-        const payload = {
-            "email": recipient,
-            "subject": subject,
-            "body": body
-        }
+    const emailResponse = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: apiKey,
+      },
+      body: JSON.stringify(payload),
+    });
 
-        const emailResponse = await fetch(url, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: apiKey,
-            },
-            body: JSON.stringify(payload),
-        });
+    const emailData = await emailResponse.json();
 
-        const emailData = await emailResponse.json();
-
-        if (emailData.success) {
-            return NextResponse.json({ success: true });
-        } else {
-            return NextResponse.json({ success: false, message: emailData.message }, { status: 500 });
-        }
-    } catch (error: any) {
-        return NextResponse.json(
-            { success: false, message: error.message },
-            { status: 500 }
-        );
+    if (emailData.success) {
+      return NextResponse.json({ success: true });
+    } else {
+      return NextResponse.json(
+        { success: false, message: emailData.message },
+        { status: 500 },
+      );
     }
+  } catch (error: any) {
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 },
+    );
+  }
 }

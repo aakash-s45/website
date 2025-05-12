@@ -8,7 +8,10 @@ interface BackdropProps {
   targetId?: string;
 }
 
-const Backdrop = ({ imageUrl = "/images/albumart.jpg", targetId = "album-art" }: BackdropProps) => {
+const Backdrop = ({
+  imageUrl = "/images/albumart.jpg",
+  targetId = "album-art",
+}: BackdropProps) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -56,7 +59,6 @@ const Backdrop = ({ imageUrl = "/images/albumart.jpg", targetId = "album-art" }:
 
     //   console.log(rect);
     // };
-
 
     const texture = textureLoader.load(imageUrl, () => {
       const material = new THREE.MeshBasicMaterial({ map: texture });

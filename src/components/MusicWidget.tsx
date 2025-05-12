@@ -10,7 +10,7 @@ import Visualizer from "./Visualizer";
 
 function isMusicPlaying(music: MusicData): boolean {
   if (!music.updatedTime || !music.duration) return false;
-  const updatedTime = new Date(music.updatedTime || 0).getTime(); 
+  const updatedTime = new Date(music.updatedTime || 0).getTime();
   const currentTime = Date.now();
   const totalElapsed = (currentTime - updatedTime) / 1000 + music.elapsed;
   return totalElapsed < music.duration;
