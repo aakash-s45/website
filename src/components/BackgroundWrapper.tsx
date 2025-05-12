@@ -10,8 +10,7 @@ interface BackgroundWrapperProps {
 
 const BackgroundWrapper: React.FC<BackgroundWrapperProps> = ({ children }) => {
   const globalData = useGlobalData();
-  const albumArt =
-    globalData?.music?.images?.at(-1)?.["#text"] || "/images/albumart.jpg";
+  const albumArt = globalData?.music?.artwork || "/images/albumart.jpg";
   return (
     <div className="relative min-h-screen">
       <Backdrop imageUrl={albumArt} />

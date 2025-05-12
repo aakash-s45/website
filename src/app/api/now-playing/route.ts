@@ -50,7 +50,7 @@ export async function GET(req: Request) {
       music: {
         title: json.title,
         artist: json.artist,
-        images: json.images,
+        artwork: json.artwork,
         duration: json.duration,
         elapsed: json.elapsed,
         updated: formatter.format(updatedTime),

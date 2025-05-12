@@ -3,15 +3,10 @@
 import { fetchCurrentTrackData } from "@/app/utils/fetchData";
 import { createContext, useContext, useState, useEffect } from "react";
 
-interface ImageObj {
-  size: string;
-  "#text": string;
-}
-
 export interface MusicData {
   title: string;
   artist: string;
-  images: ImageObj[];
+  artwork: string;
   duration: number;
   elapsed: number;
   updated?: string;
