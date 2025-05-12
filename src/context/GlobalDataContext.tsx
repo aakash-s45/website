@@ -44,13 +44,18 @@ export const GlobalDataProvider = ({
     }
   };
 
-  // Refresh every 5s
   useEffect(() => {
-    const interval = setInterval(() => {
+    const timeout = setTimeout(() => {
       fetchCurrentTrack();
+
+      const interval = setInterval(() => {
+        fetchCurrentTrack();
+      }, 5000);
+
+      return () => clearInterval(interval);
     }, 5000);
 
-    return () => clearInterval(interval);
+    return () => clearTimeout(timeout);
   }, []);
 
   return (

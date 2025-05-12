@@ -66,9 +66,12 @@ export async function POST(req: Request) {
         { status: 500 },
       );
     }
-  } catch (error: any) {
+  } catch (error) {
     return NextResponse.json(
-      { success: false, message: error.message },
+      {
+        success: false,
+        message: `Something went wrong. Please try again. ${error}`,
+      },
       { status: 500 },
     );
   }

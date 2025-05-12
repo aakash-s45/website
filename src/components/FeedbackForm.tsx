@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import styles from "./styles/FeedbackForm.module.css";
 
 export default function FeedbackScreen() {
@@ -40,6 +40,7 @@ export default function FeedbackScreen() {
         ); // Set error message from response
       }
     } catch (error) {
+      console.error(error);
       setStatus("error");
       setErrorMessage("Network error. Please try again later.");
     }

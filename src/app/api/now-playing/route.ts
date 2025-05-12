@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
+  console.log(req.url);
   const baseurl: string =
     process.env.NEXT_PUBLIC_EVENTS_BASEURL ??
     (() => {
@@ -56,9 +57,12 @@ export async function GET(req: Request) {
         updatedTime: updatedTime,
       },
     });
-  } catch (error: any) {
+  } catch (error) {
     return NextResponse.json(
-      { success: false, message: error.message },
+      {
+        success: false,
+        message: `Something went wrong. Please try again. ${error}`,
+      },
       { status: 500 },
     );
   }
