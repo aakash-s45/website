@@ -1,5 +1,5 @@
 import styles from "./styles/WeatherCard.module.css";
-import { headers } from "next/headers";
+import { getWeatherData } from "../app/api/weather/route";
 
 type WeatherCardProps = {
   weather: string;
@@ -34,18 +34,13 @@ function WeatherCard({ weather, temp, city, country }: WeatherCardProps) {
 }
 
 export default async function WeatherWidget() {
-  const headersList = await headers();
-  const host = headersList.get("host");
-  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-  const res = await fetch(`${protocol}://${host}/api/weather`, {
-    cache: "no-store",
-  });
+  let weatherData;
 
-  if (!res.ok) {
+  try {
+    weatherData = await getWeatherData();
+  } catch {
     return <div>Failed to load weather</div>;
   }
-
-  const weatherData = await res.json();
 
   return <WeatherCard {...weatherData} />;
 }

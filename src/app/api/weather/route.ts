@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
-export async function GET(req: Request) {
-  console.log(req.url);
+export async function getWeatherData() {
   const baseurl: string =
     process.env.NEXT_PUBLIC_EVENTS_BASEURL ??
     (() => {
@@ -18,20 +17,23 @@ export async function GET(req: Request) {
       );
     })();
 
+  const url = `${baseurl}/api/v1/weather`;
+  const response = await fetch(url, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: apiKey,
+    },
+    cache: "no-store",
+  });
+
+  if (!response.ok) throw new Error("Fetch failed");
+  return await response.json();
+}
+
+export async function GET(req: Request) {
   try {
-    const url = `${baseurl}/api/v1/weather`;
-    const response = await fetch(url, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: apiKey,
-      },
-      cache: "no-store",
-    });
-
-    if (!response.ok) throw new Error("Fetch failed");
-    const json = await response.json();
-
-    return NextResponse.json(json);
+    const data = await getWeatherData();
+    return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json(
       {

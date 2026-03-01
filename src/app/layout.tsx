@@ -14,6 +14,8 @@ export const metadata: Metadata = {
     "Software developer portfolio showcasing projects and experience",
 };
 
+export const dynamic = "force-dynamic";
+
 async function getInitialGlobalData() {
   const data = await fetchCurrentTrackData(); // Reuse the API call logic
 

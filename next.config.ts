@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "webhook.hdebian.online",
+        hostname: "webhook.hdebian.shop",
         pathname: "/**",
       },
       {
