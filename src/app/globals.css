@@ -27,7 +27,7 @@ body {
 @tailwind utilities;
 
 :root {
-  --primary-background: #f5f5f5;
+  --primary-background: #e8e8e0;
   /* Soft Beige */
   --secondary-background: #e7eef2;
   /* Misty Blue */
@@ -48,7 +48,15 @@ body {
   --divider: #c2c2c2;
   /* Soft Taupe */
   --shadow: #e0e0e0;
-  /* Light Shadow Gray */
+  --heading-color: #1e3b29;
+  --card-bg: rgba(245, 245, 240, 0.67);
+  --timeline-card-bg: #ffffff;
+  --music-card-bg: linear-gradient(to top, #f2f2f2, white);
+  --footer-bg: linear-gradient(to top, #cdcdb8, #c0c0ac);
+  --pill-bg: rgba(44, 83, 56, 0.08);
+  --pill-border: rgba(44, 83, 56, 0.15);
+  --pill-bg-hover: rgba(44, 83, 56, 0.15);
+  --pill-border-hover: rgba(44, 83, 56, 0.3);
   --font-main: inherit;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -84,43 +92,28 @@ body {
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-@media (prefers-color-scheme: dark1) {
-  :root {
-    --primary-background: #121212;
-    /* Deep Charcoal */
-    --secondary-background: #1f2933;
-    /* Slate Navy */
-    --primary-text: #e0e0e0;
-    /* Soft Gray */
-    --secondary-text: #a8b4a5;
-    /* Muted Sage */
-    --primary-accent: #ffd700;
-    /* Vintage Gold */
-    --secondary-accent: #8fa3a0;
-    /* Muted Aqua */
-    --vinyl-background: #0b3d3d;
-    /* Deep Teal */
-    --progress-bar: #ffaa33;
-    /* Soft Amber */
-    --divider: #2e3b42;
-    /* Dim Slate */
-    --shadow: #1a1a1a;
-    /* Shadow Gray */
-  }
-}
-
-html,
-body {
-  margin: 0px;
-  height: 100%;
-  scrollbar-width: none;
-}
-
-.box {
-  height: 100%;
-}
-
 .dark {
+  --primary-background: #121212;
+  --secondary-background: #1f2933;
+  --primary-text: #e0e0e0;
+  --primary-text2: #8fa3a0;
+  --heading-color: #e0e0e0;
+  --secondary-text: #a8b4a5;
+  --primary-accent: #ffd700;
+  --secondary-accent: #8fa3a0;
+  --vinyl-background: #0b3d3d;
+  --progress-bar: #ffaa33;
+  --divider: #2e3b42;
+  --shadow: #1a1a1a;
+  --card-bg: rgba(31, 41, 51, 0.67);
+  --timeline-card-bg: #1f2933;
+  --music-card-bg: linear-gradient(to top, #161e26, #1f2933);
+  --footer-bg: linear-gradient(to top, #161e26, #121212);
+  --pill-bg: rgba(255, 255, 255, 0.06);
+  --pill-border: rgba(255, 255, 255, 0.1);
+  --pill-bg-hover: rgba(255, 255, 255, 0.1);
+  --pill-border-hover: rgba(255, 255, 255, 0.2);
+
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -139,19 +132,17 @@ body {
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+}
+
+html,
+body {
+  margin: 0px;
+  height: 100%;
+  scrollbar-width: none;
+}
+
+.box {
+  height: 100%;
 }
 
 @theme inline {

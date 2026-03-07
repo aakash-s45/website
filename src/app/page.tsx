@@ -13,6 +13,7 @@ import TechIconGrid from "@/components/IconGrid";
 import FeedbackForm from "@/components/FeedbackForm";
 import ProjectGrid from "@/components/ProjectGrid";
 import WeatherWidget from "@/components/WeatherCard";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Home() {
   const bio = [
@@ -22,13 +23,16 @@ export default function Home() {
   ];
   return (
     <main className={styles.main}>
-      {/* Header with Weather */}
+      {/* Header with Weather & ThemeToggle */}
       <header className={styles.header}>
         <div className={styles.waveIcon}>
           <FaMountain />
         </div>
 
-        <WeatherWidget />
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <ThemeToggle />
+          <WeatherWidget />
+        </div>
       </header>
 
       <div className={styles.mainContainer}>
@@ -89,7 +93,7 @@ export default function Home() {
             style={{
               fontSize: "1.5rem",
               fontWeight: 700,
-              color: "#1e3b29",
+              color: "var(--heading-color)",
               marginBottom: "1rem",
             }}
           >

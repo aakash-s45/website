@@ -6,6 +6,7 @@ import BackgroundWrapper from "@/components/BackgroundWrapper";
 import { GlobalDataProvider } from "@/context/GlobalDataContext";
 import { fetchCurrentTrackData } from "./utils/fetchDataServer";
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -31,11 +32,22 @@ export default async function RootLayout({
   const initialData = await getInitialGlobalData();
 
   return (
-    <html lang="en" className={cn("font-sans", geist.variable)}>
+    <html
+      lang="en"
+      className={cn("font-sans", geist.variable)}
+      suppressHydrationWarning
+    >
       <body className={`${geist.className} ${styles.body}`}>
-        <GlobalDataProvider initialData={initialData}>
-          <BackgroundWrapper>{children}</BackgroundWrapper>
-        </GlobalDataProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <GlobalDataProvider initialData={initialData}>
+            <BackgroundWrapper>{children}</BackgroundWrapper>
+          </GlobalDataProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

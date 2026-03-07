@@ -59,7 +59,7 @@ const TechIconsGrid: React.FC<{ data: SkillsGrouped }> = ({ data }) => {
               fontWeight: 600,
               textTransform: "uppercase",
               letterSpacing: "0.08em",
-              color: "#3b5a5a",
+              color: "var(--secondary-text)",
               marginBottom: "0.75rem",
             }}
           >
@@ -81,9 +81,9 @@ const TechIconsGrid: React.FC<{ data: SkillsGrouped }> = ({ data }) => {
                   padding: "0.4rem 0.85rem",
                   fontSize: "0.8rem",
                   fontWeight: 500,
-                  color: "#1e3b29",
-                  backgroundColor: "rgba(44, 83, 56, 0.08)",
-                  border: "1px solid rgba(44, 83, 56, 0.15)",
+                  color: "var(--primary-text)",
+                  backgroundColor: "var(--pill-bg)",
+                  border: "1px solid var(--pill-border)",
                   borderRadius: "9999px",
                   transition: "all 0.2s ease",
                   cursor: "default",
@@ -91,14 +91,14 @@ const TechIconsGrid: React.FC<{ data: SkillsGrouped }> = ({ data }) => {
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor =
-                    "rgba(44, 83, 56, 0.15)";
-                  e.currentTarget.style.borderColor = "rgba(44, 83, 56, 0.3)";
+                    "var(--pill-bg-hover)";
+                  e.currentTarget.style.borderColor =
+                    "var(--pill-border-hover)";
                   e.currentTarget.style.transform = "translateY(-1px)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor =
-                    "rgba(44, 83, 56, 0.08)";
-                  e.currentTarget.style.borderColor = "rgba(44, 83, 56, 0.15)";
+                  e.currentTarget.style.backgroundColor = "var(--pill-bg)";
+                  e.currentTarget.style.borderColor = "var(--pill-border)";
                   e.currentTarget.style.transform = "translateY(0)";
                 }}
               >
@@ -120,7 +120,7 @@ export default function IconGridPage() {
           fontSize: "1.5rem",
           fontWeight: 700,
           marginBottom: "1.5rem",
-          color: "#1e3b29",
+          color: "var(--heading-color)",
         }}
       >
         Worked With

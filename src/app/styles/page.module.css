@@ -36,7 +36,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background: linear-gradient(to top, #cdcdb8, #c0c0ac);
+  background: var(--footer-bg);
 }
 
 .waveIcon {
@@ -45,7 +45,7 @@
   justify-content: center;
   width: 3rem;
   height: 3rem;
-  border: 1px solid #2c5338;
+  border: 1px solid var(--secondary-text);
   border-radius: 9999px;
   font-size: 1.5rem;
   color: var(--secondary-text);
@@ -74,7 +74,7 @@
 .introCard {
   display: flex;
   flex-direction: column;
-  background-color: #f5f5f0ab;
+  background-color: var(--card-bg);
   border-radius: 0.75rem;
   padding: 2rem;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -112,12 +112,12 @@
 
 .socialIcon {
   font-size: 1.5rem;
-  color: #1e3b29;
+  color: var(--primary-text);
   transition: color 0.2s;
 }
 
 .socialIcon:hover {
-  color: #3a6a47;
+  color: var(--secondary-text);
 }
 
 .bio {
@@ -128,7 +128,7 @@
 }
 
 .quoteBox {
-  background-color: #e8e8e0;
+  background-color: var(--card-bg);
   border-radius: 0.5rem;
   padding: 1.5rem;
   margin-top: 1rem;

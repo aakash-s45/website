@@ -48,7 +48,7 @@ export default function ExperienceTimeline() {
         style={{
           fontSize: "1.5rem",
           fontWeight: 700,
-          color: "#1e3b29",
+          color: "var(--heading-color)",
           marginBottom: "1rem",
         }}
       >

@@ -1,9 +1,8 @@
 /* app/styles/layout.module.css */
 .body {
   min-height: 100vh;
-  background-color: #e8e8e0;
-  /* background-color: black; */
-  color: #1e3b29;
+  background-color: var(--primary-background);
+  color: var(--primary-text);
   display: grid;
   grid-template-rows: 1fr auto;
 }
@@ -11,5 +10,5 @@
 .footer {
   text-align: center;
   padding: 1.5rem;
-  color: #2c5338;
+  color: var(--secondary-text);
 }
