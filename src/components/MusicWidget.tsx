@@ -7,6 +7,7 @@ import styles from "./styles/MusicWidget.module.css";
 import { FaHeadphonesAlt } from "react-icons/fa";
 import { FaHistory } from "react-icons/fa";
 import Visualizer from "./Visualizer";
+import PlayPreviewButton from "./PlayPreviewButton";
 
 function isMusicPlaying(music: MusicData): boolean {
   if (!music.updatedTime || !music.duration) return false;
@@ -45,8 +46,22 @@ export default function MusicWidget() {
       </div>
 
       <div className={styles.trackInfo}>
-        <h3 className={styles.title}>{globalData.music.title}</h3>
-        <p className={styles.artist}>{globalData.music.artist}</p>
+        <div className={styles.titleRow}>
+          <div className={styles.titleArtist}>
+            <h3 className={styles.title}>{globalData.music.title}</h3>
+            <p className={styles.artist}>{globalData.music.artist}</p>
+          </div>
+          {!(
+            globalData.music.title === "Somewhere beyond the clouds..." &&
+            globalData.music.artist === "the music plays on"
+          ) && (
+            <PlayPreviewButton
+              title={globalData.music.title}
+              artist={globalData.music.artist}
+              className={styles.playButton}
+            />
+          )}
+        </div>
         <Visualizer isPlaying={isPlaying} />
         <div className={styles.updated}>
           {" "}
