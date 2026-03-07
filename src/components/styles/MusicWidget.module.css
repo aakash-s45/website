@@ -57,7 +57,7 @@
 .titleRow {
   display: flex;
   justify-content: space-between;
-  align-items: stretch;
+  align-items: center;
   gap: 0.75rem;
 }
 
@@ -67,6 +67,7 @@
   justify-content: center;
   gap: 0.15rem;
   overflow: hidden;
+  height: 3.25rem;
 }
 
 .title {
@@ -76,13 +77,16 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.2;
 }
 
 .artist {
+  font-size: 0.9rem;
   color: var(--secondary-text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.2;
 }
 
 .progressContainer {
@@ -101,7 +105,7 @@
 
 .playButton {
   flex-shrink: 0;
-  height: auto;
-  aspect-ratio: 1;
-  border-radius: 14px;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 16px;
 }

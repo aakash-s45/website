@@ -88,7 +88,6 @@ export default function PlayPreviewButton({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        aspectRatio: "1",
         background: "var(--card-bg)", // matches theme card style (glassmorphism if opacity)
         backdropFilter: "blur(8px)",
         WebkitBackdropFilter: "blur(8px)",
