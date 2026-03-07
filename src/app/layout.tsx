@@ -40,7 +40,7 @@ export default async function RootLayout({
       <body className={`${geist.className} ${styles.body}`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
