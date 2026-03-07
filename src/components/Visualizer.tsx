@@ -1,7 +1,5 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 
-"use client";
-
 import { useEffect, useRef, useState } from "react";
 import styles from "./styles/Visualizer.module.css";
 

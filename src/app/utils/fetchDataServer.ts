@@ -5,6 +5,17 @@ export const fetchCurrentTrackData = async () => {
     return await getCurrentPlaying();
   } catch (error) {
     console.error("Failed to fetch data:", error);
-    throw new Error("Failed to fetch data");
+    // Return fallback data so the page still renders
+    return {
+      music: {
+        title: "Somewhere beyond the clouds...",
+        artist: "the music plays on",
+        artwork: "/images/error-albumart.png",
+        duration: 0,
+        elapsed: 0,
+        updated: "—",
+        updatedTime: new Date().toISOString(),
+      },
+    };
   }
 };

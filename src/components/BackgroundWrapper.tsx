@@ -10,9 +10,9 @@ interface BackgroundWrapperProps {
 
 const BackgroundWrapper: React.FC<BackgroundWrapperProps> = ({ children }) => {
   const globalData = useGlobalData();
-  const albumArt = globalData?.music?.artwork || "/images/albumart.jpg";
+  const albumArt = globalData?.music?.artwork || "/images/error-albumart.png";
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen overflow-x-hidden">
       <Backdrop imageUrl={albumArt} />
       <div className="relative z-10">{children}</div>
     </div>

@@ -85,7 +85,14 @@ export default function Home() {
 
         {/* Projects Section */}
         <section className={styles.sectionContainer}>
-          <div className="font-bold text-2xl mb-4 text-[var(--primary-text)]">
+          <div
+            style={{
+              fontSize: "1.5rem",
+              fontWeight: 700,
+              color: "#1e3b29",
+              marginBottom: "1rem",
+            }}
+          >
             Projects
           </div>
           <ProjectGrid />
@@ -96,13 +103,13 @@ export default function Home() {
 
       <footer className={styles.footer}>
         <FeedbackForm />
-        <div className="font-semibold bottom-9 opacity-80 flex flex-row gap-2 items-center">
+        {/* <div className="font-semibold bottom-9 opacity-80 flex flex-row items-center" style={{ gap: '6px' }}>
           <p>Made with</p>
           <FaHeadphonesAlt />
           <p>and</p>
           <FaCoffee />
           <p>by Aakash Solanki</p>
-        </div>
+        </div> */}
       </footer>
     </main>
   );

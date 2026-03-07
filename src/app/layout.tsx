@@ -1,12 +1,13 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Geist } from "next/font/google";
 import type { Metadata } from "next";
 import styles from "./styles/layout.module.css";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
 import { GlobalDataProvider } from "@/context/GlobalDataContext";
 import { fetchCurrentTrackData } from "./utils/fetchDataServer";
+import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"] });
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Aakash Solanki | Portfolio",
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 async function getInitialGlobalData() {
-  const data = await fetchCurrentTrackData(); // Reuse the API call logic
+  const data = await fetchCurrentTrackData();
 
   return data;
 }
@@ -30,8 +31,8 @@ export default async function RootLayout({
   const initialData = await getInitialGlobalData();
 
   return (
-    <html lang="en">
-      <body className={`${inter.className} ${styles.body}`}>
+    <html lang="en" className={cn("font-sans", geist.variable)}>
+      <body className={`${geist.className} ${styles.body}`}>
         <GlobalDataProvider initialData={initialData}>
           <BackgroundWrapper>{children}</BackgroundWrapper>
         </GlobalDataProvider>

@@ -21,7 +21,7 @@ export default function MusicWidget() {
 
   if (!globalData?.music) return null;
 
-  const albumArt = globalData?.music?.artwork || "/images/albumart.jpg";
+  const albumArt = globalData?.music?.artwork || "/images/error-albumart.png";
 
   const isPlaying = globalData?.music.updated
     ? isMusicPlaying(globalData?.music)

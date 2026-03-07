@@ -44,7 +44,16 @@ const experiences: Experience[] = [
 export default function ExperienceTimeline() {
   return (
     <div className={styles.container}>
-      <div className="font-bold text-2xl"> Worked at </div>
+      <div
+        style={{
+          fontSize: "1.5rem",
+          fontWeight: 700,
+          color: "#1e3b29",
+          marginBottom: "1rem",
+        }}
+      >
+        Worked at
+      </div>
       {/* Experience items */}
       <div className={styles.experienceList}>
         {experiences.map((exp) => {
