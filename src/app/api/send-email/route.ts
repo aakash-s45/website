@@ -54,7 +54,7 @@ export async function POST(req: Request) {
         Authorization: apiKey,
       },
       body: JSON.stringify(payload),
-      signal: AbortSignal.timeout(5000),
+      signal: AbortSignal.timeout(15000),
     });
 
     const emailData = await emailResponse.json();
