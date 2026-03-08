@@ -19,35 +19,67 @@ export default function PlayPreviewButton({
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Cleanup audio on unmount
+  // Stop and reset whenever the song changes (or on unmount)
   useEffect(() => {
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current.src = "";
+        audioRef.current = null;
       }
+      setIsPlaying(false);
+      setIsLoading(false);
+      setPreviewUrl(null);
     };
-  }, []);
+  }, [title, artist]);
+
+  // Pre-fetch the preview URL on hover so the click handler can call audio.play()
+  // synchronously within the user gesture — required by iOS WebKit's autoplay policy.
+  const prefetchUrl = async () => {
+    if (previewUrl) return;
+    try {
+      const query = encodeURIComponent(`${title} ${artist}`);
+      const res = await fetch(
+        `https://itunes.apple.com/search?term=${query}&entity=song&limit=1`,
+      );
+      const data = await res.json();
+      const pUrl = data.results?.[0]?.previewUrl as string | undefined;
+      if (pUrl) setPreviewUrl(pUrl);
+    } catch {
+      // Silently ignore — click handler will retry
+    }
+  };
 
   const handlePlayPause = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
-    // If already playing, pause it
+    // Pause
     if (isPlaying && audioRef.current) {
       audioRef.current.pause();
       setIsPlaying(false);
       return;
     }
 
-    // If we have URL and it's paused, play it
-    if (previewUrl && audioRef.current) {
+    // Resume after pause
+    if (!isPlaying && audioRef.current && previewUrl) {
       audioRef.current.play().catch(console.error);
       setIsPlaying(true);
       return;
     }
 
-    // Otherwise fetch the URL
+    // URL was pre-fetched on hover — play synchronously within the gesture (iOS-safe)
+    if (previewUrl) {
+      const audio = new Audio(previewUrl);
+      audio.volume = 0.5;
+      audio.onended = () => setIsPlaying(false);
+      audioRef.current = audio;
+      audio.play().catch(console.error);
+      setIsPlaying(true);
+      return;
+    }
+
+    // Fallback: fetch then play (async — may be blocked by iOS autoplay policy on first tap)
     setIsLoading(true);
     try {
       const query = encodeURIComponent(`${title} ${artist}`);
@@ -56,16 +88,15 @@ export default function PlayPreviewButton({
       );
       const data = await res.json();
 
-      const pUrl = data.results?.[0]?.previewUrl;
+      const pUrl = data.results?.[0]?.previewUrl as string | undefined;
       if (!pUrl) {
         console.warn("No preview URL found.");
-        setIsLoading(false);
         return;
       }
 
       setPreviewUrl(pUrl);
       const audio = new Audio(pUrl);
-      audio.volume = 0.5; // reasonable volume
+      audio.volume = 0.5;
       audio.onended = () => setIsPlaying(false);
       audioRef.current = audio;
 
@@ -100,12 +131,14 @@ export default function PlayPreviewButton({
         outline: "none",
       }}
       onMouseEnter={(e) => {
+        prefetchUrl();
         if (!isLoading) {
           e.currentTarget.style.transform = "scale(1.08)";
           e.currentTarget.style.boxShadow = "0 6px 20px rgba(0, 0, 0, 0.2)";
           e.currentTarget.style.backgroundColor = "var(--pill-bg-hover)";
         }
       }}
+      onPointerDown={prefetchUrl}
       onMouseLeave={(e) => {
         if (!isLoading) {
           e.currentTarget.style.transform = "scale(1)";

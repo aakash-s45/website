@@ -42,17 +42,17 @@ export const GlobalDataProvider = ({
   };
 
   useEffect(() => {
+    let interval: ReturnType<typeof setInterval>;
+
     const timeout = setTimeout(() => {
       fetchCurrentTrack();
-
-      const interval = setInterval(() => {
-        fetchCurrentTrack();
-      }, 5000);
-
-      return () => clearInterval(interval);
+      interval = setInterval(fetchCurrentTrack, 5000);
     }, 5000);
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      clearInterval(interval);
+    };
   }, []);
 
   return (

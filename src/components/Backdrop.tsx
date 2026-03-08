@@ -145,12 +145,20 @@ const Backdrop = ({
     camera.lookAt(0, 0, 0);
 
     // ---- Renderer ----
-    const renderer = new THREE.WebGLRenderer({
-      canvas,
-      antialias: true,
-      alpha: true,
-    });
-    renderer.setPixelRatio(window.devicePixelRatio);
+    // WebGL can be unavailable on mobile (Low Power Mode, GPU context limit, old WebViews).
+    // Guard against the thrown error so it doesn't crash the entire React tree.
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
+        alpha: true,
+      });
+    } catch {
+      return;
+    }
+    // Clamp to 2× to avoid 3-4× render load on high-DPI phones that kills the GPU.
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(window.innerWidth, window.innerHeight, false);
 
     canvas.style.filter = "blur(40px) contrast(0.7) saturate(1.8)";
@@ -281,7 +289,7 @@ const Backdrop = ({
     const onResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight, false);
+      renderer!.setSize(window.innerWidth, window.innerHeight, false);
     };
 
     window.addEventListener("resize", onResize);
