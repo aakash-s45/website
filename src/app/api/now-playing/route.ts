@@ -24,6 +24,7 @@ export async function getCurrentPlaying() {
       Authorization: apiKey,
     },
     cache: "no-store",
+    signal: AbortSignal.timeout(5000),
   });
 
   if (!response.ok) throw new Error("Fetch failed");
