@@ -8,7 +8,6 @@ import { MdEmail } from "react-icons/md";
 import MusicWidget from "@/components/MusicWidget";
 import ExperienceTimeline from "@/components/ExperienceTimeline";
 import styles from "./styles/page.module.css";
-import { FaMountain } from "react-icons/fa";
 import TechIconGrid from "@/components/IconGrid";
 import FeedbackForm from "@/components/FeedbackForm";
 import ProjectGrid from "@/components/ProjectGrid";
@@ -26,12 +25,9 @@ export default function Home() {
     <main className={styles.main}>
       {/* Header with Weather & ThemeToggle */}
       <header className={styles.header}>
-        <div className={styles.waveIcon}>
-          <FaMountain />
-        </div>
+        <ThemeToggle />
 
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <ThemeToggle />
+        <div className={styles.headerRight}>
           <WeatherWidget />
         </div>
       </header>

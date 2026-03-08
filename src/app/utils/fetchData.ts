@@ -4,20 +4,9 @@ export const fetchCurrentTrackData = async () => {
       cache: "no-store",
     });
     if (!response.ok) throw new Error("API error");
-    const data = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
     console.error("Failed to fetch data:", error);
-    return {
-      music: {
-        title: "Somewhere beyond the clouds...",
-        artist: "the music plays on",
-        artwork: "/images/error-albumart.png",
-        duration: 0,
-        elapsed: 0,
-        updated: "—",
-        updatedTime: new Date().toISOString(),
-      },
-    };
+    return null;
   }
 };

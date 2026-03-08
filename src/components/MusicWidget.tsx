@@ -1,6 +1,7 @@
 // components/MusicWidget.tsx
 "use client";
 
+import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { MusicData, useGlobalData } from "@/context/GlobalDataContext";
 import styles from "./styles/MusicWidget.module.css";
@@ -15,6 +16,64 @@ function isMusicPlaying(music: MusicData): boolean {
   const currentTime = Date.now();
   const totalElapsed = (currentTime - updatedTime) / 1000 + music.elapsed;
   return totalElapsed < music.duration;
+}
+
+function ScrollingText({
+  children,
+  className,
+}: {
+  children: string;
+  className: string;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+  const [animDuration, setAnimDuration] = useState(10);
+  const textWidthRef = useRef(0);
+  const [prevChildren, setPrevChildren] = useState(children);
+
+  if (children !== prevChildren) {
+    setPrevChildren(children);
+    setIsOverflowing(false);
+  }
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => {
+      const cw = el.clientWidth;
+      if (isOverflowing) {
+        if (textWidthRef.current <= cw) setIsOverflowing(false);
+      } else {
+        const sw = el.scrollWidth;
+        if (sw > cw) {
+          textWidthRef.current = sw;
+          setAnimDuration(sw / 30);
+          setIsOverflowing(true);
+        }
+      }
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [isOverflowing, children]);
+
+  return (
+    <div
+      ref={containerRef}
+      className={`${className} ${isOverflowing ? styles.scrolling : ""}`}
+    >
+      {isOverflowing ? (
+        <span
+          className={styles.scrollInner}
+          style={{ animationDuration: `${animDuration}s` }}
+        >
+          <span>{children}</span>
+          <span aria-hidden="true">{children}</span>
+        </span>
+      ) : (
+        children
+      )}
+    </div>
+  );
 }
 
 export default function MusicWidget() {
@@ -48,8 +107,12 @@ export default function MusicWidget() {
       <div className={styles.trackInfo}>
         <div className={styles.titleRow}>
           <div className={styles.titleArtist}>
-            <h3 className={styles.title}>{globalData.music.title}</h3>
-            <p className={styles.artist}>{globalData.music.artist}</p>
+            <ScrollingText className={styles.title}>
+              {globalData.music.title}
+            </ScrollingText>
+            <ScrollingText className={styles.artist}>
+              {globalData.music.artist}
+            </ScrollingText>
           </div>
           {!(
             globalData.music.title === "Somewhere beyond the clouds..." &&

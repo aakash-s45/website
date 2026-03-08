@@ -3,14 +3,129 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
+// ---------------------------------------------------------------------------
+// Configuration types
+// ---------------------------------------------------------------------------
+
+interface MeshConfig {
+  /** X offset from element center (fraction of element min dimension) */
+  offsetX: number;
+  /** Y offset from element center (fraction; positive = up on screen) */
+  offsetY: number;
+  /** Z depth in world units (negative = further from camera) */
+  depth: number;
+  /** Mesh radius as fraction of element min dimension */
+  scale: number;
+  /** Initial Z rotation (radians) */
+  rotation: number;
+  /** Orbit drift radius (fraction of element min dimension) */
+  orbitRadius: number;
+  /** Orbit angular speed (rad/s) */
+  orbitSpeed: number;
+  /** Self-rotation speed (rad/frame) */
+  rotSpeed: number;
+  /** Vertical float amplitude (fraction of element min dimension) */
+  floatAmpY: number;
+}
+
+export interface AnchorGroup {
+  targetId: string;
+  meshConfigs: MeshConfig[];
+}
+
+// ---------------------------------------------------------------------------
+// Default anchor configuration – tweak these numbers freely
+// ---------------------------------------------------------------------------
+
+const DEFAULT_ANCHORS: AnchorGroup[] = [
+  {
+    targetId: "album-art",
+    meshConfigs: [
+      {
+        offsetX: -0.5,
+        offsetY: 0.2,
+        depth: -4,
+        scale: 0.85,
+        rotation: 4,
+        orbitRadius: 0.1,
+        orbitSpeed: 0.14,
+        rotSpeed: 0.0004,
+        floatAmpY: 0.08,
+      },
+      {
+        offsetX: 0.8,
+        offsetY: 0,
+        depth: -4,
+        scale: 0.85,
+        rotation: -0.8,
+        orbitRadius: 0.12,
+        orbitSpeed: 0.18,
+        rotSpeed: 0.0006,
+        floatAmpY: 0.1,
+      },
+      {
+        offsetX: -0.1,
+        offsetY: -0.7,
+        depth: -30,
+        scale: 0.75,
+        rotation: 0.14,
+        orbitRadius: 0.15,
+        orbitSpeed: 0.12,
+        rotSpeed: 0.0003,
+        floatAmpY: 0.12,
+      },
+    ],
+  },
+  {
+    targetId: "project-grid",
+    meshConfigs: [
+      {
+        offsetX: -0.7,
+        offsetY: 0.2,
+        depth: -12,
+        scale: 0.35,
+        rotation: -0.2,
+        orbitRadius: 0.06,
+        orbitSpeed: 0.15,
+        rotSpeed: 0.0005,
+        floatAmpY: 0.07,
+      },
+      {
+        offsetX: 0.3,
+        offsetY: -0.1,
+        depth: 2,
+        scale: 0.4,
+        rotation: 2.6,
+        orbitRadius: 0.05,
+        orbitSpeed: 0.2,
+        rotSpeed: 0.0007,
+        floatAmpY: 0.06,
+      },
+    ],
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Constants
+// ---------------------------------------------------------------------------
+
+const CAMERA_Z = 100;
+const CAMERA_FOV = 65;
+const GEO_SEGMENTS = 64;
+const ORIG_RADIUS = 13; // original geometry radius – used to preserve warp ratios
+
+// ---------------------------------------------------------------------------
+// Component
+// ---------------------------------------------------------------------------
+
 interface BackdropProps {
   imageUrl?: string;
-  targetId?: string;
+  anchors?: AnchorGroup[];
 }
 
 const Backdrop = ({
   imageUrl = "/images/error-albumart.png",
-  targetId = "album-art",
+  anchors = DEFAULT_ANCHORS,
 }: BackdropProps) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -18,212 +133,186 @@ const Backdrop = ({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    // Multiplier: how much bigger than the widget the canvas extends
-    const PAD = 9;
-
-    // Get canvas dimensions and position based on the music widget
-    const getWidgetDims = () => {
-      const el = targetId ? document.getElementById(targetId) : null;
-      if (!el)
-        return {
-          w: window.innerWidth,
-          h: window.innerHeight,
-          cx: window.innerWidth / 2,
-          cy: window.innerHeight / 2,
-        };
-      const r = el.getBoundingClientRect();
-      const w = r.width * PAD;
-      const h = r.height * PAD;
-      const cx = r.left + r.width / 2 + window.scrollX;
-      const cy = r.top + r.height / 2 + window.scrollY;
-      return { w, h, cx, cy };
-    };
-
-    const dims = getWidgetDims();
-
-    // Scene setup
+    // ---- Scene & camera ----
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(65, dims.w / dims.h, 0.1, 1000);
-    camera.position.set(0, 25, 100);
+    const camera = new THREE.PerspectiveCamera(
+      CAMERA_FOV,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000,
+    );
+    camera.position.set(0, 0, CAMERA_Z);
     camera.lookAt(0, 0, 0);
 
-    // Renderer setup
+    // ---- Renderer ----
     const renderer = new THREE.WebGLRenderer({
       canvas,
       antialias: true,
       alpha: true,
     });
-
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(dims.w, dims.h, false);
-    canvas.style.width = `${dims.w}px`;
-    canvas.style.height = `${dims.h}px`;
-    canvas.style.left = `${(dims.cx - dims.w) / 2}px`;
-    canvas.style.top = `${(dims.cy - dims.h) / 2}px`;
-    canvas.style.display = "block";
+    renderer.setSize(window.innerWidth, window.innerHeight, false);
 
-    // canvas.style.backgroundColor = "green";
-    // canvas.style.filter = "blur(40px) contrast(1.0) saturate(4.5)";
-    canvas.style.filter = "blur(40px) contrast(0.7) saturate(1.5)";
+    canvas.style.filter = "blur(40px) contrast(0.7) saturate(1.8)";
 
-    // Mesh & material setup
-    const meshInstances: THREE.Mesh[] = [];
-    const geometry = new THREE.CircleGeometry(13, 64);
-    const textureLoader = new THREE.TextureLoader();
+    // ---- Coordinate helpers ----
 
-    // Per-mesh animation parameters (stored alongside meshes)
-    interface MeshAnimData {
-      basePos: THREE.Vector3;
-      orbitRadius: number;
-      orbitSpeed: number;
-      phaseOffset: number;
-      rotSpeed: number;
-      floatAmpY: number;
+    const getPixelToWorld = () => {
+      const halfFov = THREE.MathUtils.degToRad(camera.fov / 2);
+      return (2 * CAMERA_Z * Math.tan(halfFov)) / window.innerHeight;
+    };
+
+    const rectToWorld = (rect: DOMRect, p2w: number): [number, number] => {
+      const cx = rect.left + rect.width / 2 - window.innerWidth / 2;
+      const cy = -(rect.top + rect.height / 2 - window.innerHeight / 2);
+      return [cx * p2w, cy * p2w];
+    };
+
+    // ---- Build meshes on texture load ----
+
+    interface RuntimeMesh {
+      mesh: THREE.Mesh;
+      geo: THREE.CircleGeometry;
+      cfg: MeshConfig;
+      groupIdx: number;
+      phase: number;
     }
-    const meshAnimData: MeshAnimData[] = [];
 
+    const runtimeMeshes: RuntimeMesh[] = [];
+
+    const textureLoader = new THREE.TextureLoader();
     const texture = textureLoader.load(imageUrl, () => {
       const material = new THREE.MeshBasicMaterial({ map: texture });
-      // Centered at origin, scaled 0.9 to keep cluster tight
-      const S = 0.9;
-      const meshConfig = [
-        { position: new THREE.Vector3(-15 * S, -7 * S, -4 * S), rotation: 4 },
-        {
-          position: new THREE.Vector3((18 - 20) * S, -7 * S, -4 * S),
-          rotation: -0.8,
-        },
-        {
-          position: new THREE.Vector3((8 - 20) * S, -32 * S, -34 * S),
-          rotation: 0.14,
-        },
-        {
-          position: new THREE.Vector3(-48 * S, -82 * S, -12 * S),
-          rotation: -0.2,
-        },
-        { position: new THREE.Vector3(-12 * S, -70 * S, 2 * S), rotation: 2.6 },
-      ];
+      const total = anchors.reduce((s, g) => s + g.meshConfigs.length, 0);
+      let idx = 0;
 
-      meshConfig.forEach(({ position, rotation }, i) => {
-        const mesh = new THREE.Mesh(geometry, material);
-        mesh.position.copy(position);
-        mesh.rotation.z = rotation;
-        scene.add(mesh);
-        meshInstances.push(mesh);
+      anchors.forEach((group, gi) => {
+        group.meshConfigs.forEach((cfg) => {
+          const geo = new THREE.CircleGeometry(1, GEO_SEGMENTS);
+          const mesh = new THREE.Mesh(geo, material);
+          mesh.rotation.z = cfg.rotation;
+          mesh.visible = false;
+          scene.add(mesh);
 
-        // Each mesh gets unique animation params for organic feel
-        meshAnimData.push({
-          basePos: position.clone(),
-          orbitRadius: 1.5 + Math.random() * 2.1, // gentle drift radius
-          orbitSpeed: 0.12 + Math.random() * 0.15, // drift speed
-          phaseOffset:
-            (i / meshConfig.length) * Math.PI * 2 + Math.random() * 0.5,
-          rotSpeed: 0.0002 + Math.random() * 0.001, // rotation speed
-          floatAmpY: 1 + Math.random() * 1.7, // vertical float amplitude
+          runtimeMeshes.push({
+            mesh,
+            geo,
+            cfg,
+            groupIdx: gi,
+            phase: (idx / total) * Math.PI * 2 + Math.random() * 0.5,
+          });
+          idx++;
         });
       });
     });
 
-    // Animate
-    let animationFrameId: number;
+    // ---- Animation loop ----
+
+    let animId: number;
+
     const animate = () => {
-      animationFrameId = requestAnimationFrame(animate);
-      const time = performance.now() * 0.001;
+      animId = requestAnimationFrame(animate);
+      const t = performance.now() * 0.001;
+      const p2w = getPixelToWorld();
 
-      meshInstances.forEach((mesh, i) => {
-        const anim = meshAnimData[i];
-        if (!anim) return;
+      for (let i = 0; i < runtimeMeshes.length; i++) {
+        const rm = runtimeMeshes[i];
+        const el = document.getElementById(anchors[rm.groupIdx].targetId);
 
-        // Floating orbit: each mesh drifts around its base position
-        mesh.position.x =
-          anim.basePos.x +
-          Math.sin(time * anim.orbitSpeed + anim.phaseOffset) *
-            anim.orbitRadius;
-        mesh.position.y =
-          anim.basePos.y +
-          Math.cos(time * anim.orbitSpeed * 0.7 + anim.phaseOffset) *
-            anim.floatAmpY;
-        mesh.position.z =
-          anim.basePos.z +
-          Math.sin(time * anim.orbitSpeed * 0.5 + anim.phaseOffset * 1.3) * 2;
+        if (!el) {
+          rm.mesh.visible = false;
+          continue;
+        }
 
-        // Subtle scale breathing
-        const scalePulse = 1 + Math.sin(time * 0.3 + anim.phaseOffset) * 0.05;
-        mesh.scale.set(scalePulse, scalePulse, 1);
+        rm.mesh.visible = true;
 
-        // Vertex warp (more pronounced at close range)
-        const posAttr = mesh.geometry.attributes
-          .position as THREE.BufferAttribute;
+        const rect = el.getBoundingClientRect();
+        const [wx, wy] = rectToWorld(rect, p2w);
+        const elSize = Math.min(rect.width, rect.height) * p2w;
+        const { cfg, phase } = rm;
+
+        // --- Position: element center + config offset + orbit drift ---
+        const baseX = wx + cfg.offsetX * elSize;
+        const baseY = wy + cfg.offsetY * elSize;
+
+        const driftX =
+          Math.sin(t * cfg.orbitSpeed + phase) * cfg.orbitRadius * elSize;
+        const driftY =
+          Math.cos(t * cfg.orbitSpeed * 0.7 + phase) * cfg.floatAmpY * elSize;
+        const driftZ = Math.sin(t * cfg.orbitSpeed * 0.5 + phase * 1.3) * 2;
+
+        rm.mesh.position.set(
+          baseX + driftX,
+          baseY + driftY,
+          cfg.depth + driftZ,
+        );
+
+        // --- Scale: proportional to element, with subtle breathing ---
+        const meshScale = elSize * cfg.scale;
+        const pulse = 1 + Math.sin(t * 0.3 + phase) * 0.05;
+        rm.mesh.scale.set(meshScale * pulse, meshScale * pulse, 1);
+
+        // --- Vertex warp (flag flutter) ---
+        const warpFactor = meshScale / ORIG_RADIUS;
+        const posAttr = rm.geo.attributes.position as THREE.BufferAttribute;
         for (let j = 0; j < posAttr.count; j++) {
-          const x = posAttr.getX(j);
-          const y = posAttr.getY(j);
+          const vx = posAttr.getX(j);
+          const vy = posAttr.getY(j);
           posAttr.setZ(
             j,
-            Math.sin(x * 0.5 + time * 0.5 + anim.phaseOffset) * 6 * 1.5 +
-              Math.cos(y * 0.4 + time * 0.35) * 4 * 1.5,
+            (Math.sin(vx * 6.5 + t * 0.5 + phase) * 9 +
+              Math.cos(vy * 5.2 + t * 0.35) * 6) *
+              warpFactor,
           );
         }
         posAttr.needsUpdate = true;
 
-        // Smooth rotation
-        mesh.rotation.z += anim.rotSpeed;
-      });
+        // --- Self-rotation ---
+        rm.mesh.rotation.z += cfg.rotSpeed;
+      }
 
       renderer.render(scene, camera);
     };
 
     animate();
 
-    // Reposition and resize canvas based on music widget
-    const updateLayout = () => {
-      const d = getWidgetDims();
-      camera.aspect = d.w / d.h;
+    // ---- Resize handler (scroll is handled implicitly by rAF) ----
+
+    const onResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(d.w, d.h, false);
-      canvas.style.width = `${d.w}px`;
-      canvas.style.height = `${d.h}px`;
-      canvas.style.left = `${d.cx - d.w / 2}px`;
-      canvas.style.top = `${d.cy - d.h / 2}px`;
+      renderer.setSize(window.innerWidth, window.innerHeight, false);
     };
 
-    window.addEventListener("resize", updateLayout);
-    window.addEventListener("scroll", updateLayout, { passive: true });
+    window.addEventListener("resize", onResize);
 
-    // Observe the target element for layout changes
-    let resizeObserver: ResizeObserver | null = null;
-    const targetEl = targetId ? document.getElementById(targetId) : null;
-    if (targetEl) {
-      resizeObserver = new ResizeObserver(updateLayout);
-      resizeObserver.observe(targetEl);
-    }
+    // ---- Cleanup ----
 
-    // Cleanup
     return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("resize", updateLayout);
-      window.removeEventListener("scroll", updateLayout);
-      if (resizeObserver) resizeObserver.disconnect();
+      cancelAnimationFrame(animId);
+      window.removeEventListener("resize", onResize);
       renderer.dispose();
 
-      meshInstances.forEach((mesh) => {
-        mesh.geometry.dispose();
-        if (mesh.material instanceof THREE.Material) mesh.material.dispose();
+      runtimeMeshes.forEach((rm) => {
+        rm.geo.dispose();
+        if (rm.mesh.material instanceof THREE.Material)
+          rm.mesh.material.dispose();
       });
-
       texture.dispose();
-      geometry.dispose();
     };
-  }, [imageUrl, targetId]);
+  }, [imageUrl, anchors]);
 
   return (
     <canvas
       ref={canvasRef}
       style={{
-        position: "absolute",
+        position: "fixed",
         top: 0,
         left: 0,
-        width: "100%",
-        height: "100%",
+        width: "100vw",
+        height: "100vh",
         zIndex: -1,
+        pointerEvents: "none",
       }}
     />
   );

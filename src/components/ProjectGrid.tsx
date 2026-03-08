@@ -38,7 +38,7 @@ const projects = [
 
 export default function ProjectGrid() {
   return (
-    <div className={styles.grid}>
+    <div id="project-grid" className={styles.grid}>
       {projects.map((project, index) => (
         <div
           className={styles.card}
