@@ -67,7 +67,7 @@
 
 @media (min-width: 768px) {
   .heroSection {
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
   }
 }
 
@@ -133,7 +133,7 @@
   padding: 1.5rem;
   margin-top: 1rem;
   font-style: italic;
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.7;
   color: var(--secondary-text);
 }

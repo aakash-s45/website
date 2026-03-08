@@ -37,23 +37,42 @@
 }
 
 .experienceDetails {
-  display: grid;
-  padding-left: 2rem;
-  gap: 0.25rem;
-}
-
-.company {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: var(--primary-text);
+  display: flex;
+  flex-direction: column;
+  padding-left: 1.5rem;
 }
 
 .role {
-  color: var(--secondary-text);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--primary-text);
+  margin: 0 0 0.15rem 0;
+}
+
+.company {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--primary-text);
+  margin: 0 0 0.15rem 0;
 }
 
 .dates {
   font-size: 0.875rem;
-  margin-top: 0.25rem;
   color: var(--secondary-text);
+  margin: 0 0 0.75rem 0;
+}
+
+.description {
+  font-size: 0.95rem;
+  color: var(--primary-text);
+  opacity: 0.85;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 50vw;
+}
+
+@media (max-width: 668px) {
+  .description {
+    max-width: 100%;
+  }
 }

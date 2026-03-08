@@ -17,10 +17,11 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Home() {
   const bio = [
-    "I'm a software developer with experience in building backend systems, mobile apps, and IoT projects. I did my undergrad at IIT Mandi.",
-    "I like working on real-world problems and enjoy finding solutions that are simple, practical, and actually work.",
-    "Spent a good part of college in the mountains—learned to keep things calm, simple, and steady. Outside of coding, I’m usually out walking or listening to music.",
+    "I'm a Software Engineer at Microsoft, specializing in backend systems, distributed architectures, and scalable web services.",
+    "Previously, I built event-driven systems at Credgenics, contributed to Automotive Grade Linux via GSoC, and worked on AI at Samsung R&D.",
+    "I'm always open to learning, discussing cool projects, and building meaningful engineering solutions. Let's connect!",
   ];
+
   return (
     <main className={styles.main}>
       {/* Header with Weather & ThemeToggle */}
